@@ -2,12 +2,12 @@
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; } 
-        public Sex Sex { get; set; } 
-        public Address Address { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Email { get; set; }
+        public virtual string Password { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Surname { get; set; }
+        public virtual Sex Sex { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

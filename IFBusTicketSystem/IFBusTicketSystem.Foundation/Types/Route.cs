@@ -4,9 +4,9 @@ namespace IFBusTicketSystem.Foundation.Types
 {
     public class Route
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Station> Stations { get; set; } = new List<Station>();
+        public virtual int Id { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+        public virtual IEnumerable<Station> Stations { get; set; } = new List<Station>();
     }
 }

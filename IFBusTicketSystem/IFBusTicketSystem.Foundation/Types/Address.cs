@@ -2,9 +2,9 @@
 {
     public class Address
     {
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public string Building { get; set; }
+        public virtual string Country { get; set; }
+        public virtual string City { get; set; }
+        public virtual string Street { get; set; }
+        public virtual string Building { get; set; }
     }
 }

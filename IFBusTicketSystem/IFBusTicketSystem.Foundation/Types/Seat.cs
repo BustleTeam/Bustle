@@ -2,9 +2,9 @@
 {
     public class Seat
     {
-        public int Id { get; set; }
-        public int Number { get; set; }
-        public Race Race { get; set; }
-        public bool IsAvailable { get; set; }
+        public virtual int Id { get; set; }
+        public virtual int Number { get; set; }
+        public virtual Race Race { get; set; }
+        public virtual bool IsAvailable { get; set; }
     }
 }

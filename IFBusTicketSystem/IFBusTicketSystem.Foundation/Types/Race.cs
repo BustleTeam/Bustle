@@ -4,8 +4,8 @@ namespace IFBusTicketSystem.Foundation.Types
 {
     public class Race
     {
-        public int Id { get; set; }
-        public Route Route { get; set; }
-        public List<Stop> Stops { get; set; } = new List<Stop>();
+        public virtual int Id { get; set; }
+        public virtual Route Route { get; set; }
+        public virtual IEnumerable<Stop> Stops { get; set; } = new List<Stop>();
     }
 }
