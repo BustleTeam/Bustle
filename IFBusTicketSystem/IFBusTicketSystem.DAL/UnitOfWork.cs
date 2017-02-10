@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Cfg;
 using IFBusTicketSystem.DAL.Interfaces;
+using IFBusTicketSystem.DAL.Repositories;
 using NHibernate;
 
 namespace IFBusTicketSystem.DAL
@@ -11,10 +12,29 @@ namespace IFBusTicketSystem.DAL
 
         public ISession Session { get; } = SessionFactory.OpenSession();
 
+        public IRaceRepository Races { get; private set; }
+        public IRouteRepository Routes { get; private set; }
+        public ISeatRepository Seats { get; private set; }
+        public IStationRepository Stations { get; private set; }
+        public IStopRepository Stops { get; private set; }
+        public ITicketRepository Tickets { get; private set; }
+        public IUserRepository Users { get; private set; }
+
         static UnitOfWork()
         {
             //TODO: Add SessionFactory configuration later (V.Y.)
-            SessionFactory = Fluently.Configure().BuildSessionFactory();
+            SessionFactory = Fluently.Configure().BuildSessionFactory();            
+        }
+
+        public UnitOfWork()
+        {
+            Races = new RaceRepository(Session);
+            Routes = new RouteRepository(Session);
+            Seats = new SeatRepository(Session);
+            Stations = new StationRepository(Session);
+            Stops = new StopRepository(Session);
+            Tickets = new TicketRepository(Session);
+            Users = new UserRepository(Session);
         }
 
         public void BeginTransaction()
