@@ -4,6 +4,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.DAL.MappingConfiguration;
+using IFBusTicketSystem.DAL.Repositories;
 using IFBusTicketSystem.Foundation.Types;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
