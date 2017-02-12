@@ -1,7 +1,12 @@
-﻿using FluentNHibernate.Cfg;
+﻿using System.Configuration;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using IFBusTicketSystem.DAL.Interfaces;
-using IFBusTicketSystem.DAL.Repositories;
+using IFBusTicketSystem.DAL.MappingConfiguration;
+using IFBusTicketSystem.Foundation.Types;
 using NHibernate;
+using NHibernate.Tool.hbm2ddl;
 
 namespace IFBusTicketSystem.DAL
 {
@@ -22,8 +27,11 @@ namespace IFBusTicketSystem.DAL
 
         static UnitOfWork()
         {
-            //TODO: Add SessionFactory configuration later (V.Y.)
-            SessionFactory = Fluently.Configure().BuildSessionFactory();            
+            SessionFactory = Fluently.Configure()
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(ConfigurationManager.ConnectionStrings["BustleDB"].ConnectionString))
+                .Mappings(_ => _.AutoMappings.Add(AutoMap.AssemblyOf<Race>(new StoreConfiguration())))
+                .ExposeConfiguration(_ => new SchemaUpdate(_).Execute(false, true))
+                .BuildSessionFactory();
         }
 
         public UnitOfWork()
