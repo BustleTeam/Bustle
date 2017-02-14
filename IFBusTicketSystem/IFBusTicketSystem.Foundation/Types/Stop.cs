@@ -8,5 +8,6 @@ namespace IFBusTicketSystem.Foundation.Types
         public virtual Station Station { get; set; }
         public virtual DateTime Arrival { get; set; }
         public virtual DateTime Departure { get; set; }
+        public virtual Race Race { get; set; }
     }
 }

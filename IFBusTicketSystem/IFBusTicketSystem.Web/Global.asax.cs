@@ -10,8 +10,6 @@ namespace IFBusTicketSystem.Web
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            //TODO: Remove it after adding Dependency Injection (V.Y.)
-            new UnitOfWork();
         }
     }
 }

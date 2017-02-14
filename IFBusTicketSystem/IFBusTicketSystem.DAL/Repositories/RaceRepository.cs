@@ -6,9 +6,5 @@ namespace IFBusTicketSystem.DAL.Repositories
 {
     public class RaceRepository : Repository<Race>, IRaceRepository
     {
-        public RaceRepository(ISession session)
-            : base(session)
-        {
-        }
     }
 }

@@ -6,9 +6,5 @@ namespace IFBusTicketSystem.DAL.Repositories
 {
     public class TicketRepository : Repository<Ticket>, ITicketRepository
     {
-        public TicketRepository(ISession session)
-            : base(session)
-        {
-        }
     }
 }

@@ -1,50 +1,29 @@
-﻿using System.Configuration;
-using FluentNHibernate.Automapping;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using IFBusTicketSystem.DAL.Interfaces;
-using IFBusTicketSystem.DAL.MappingConfiguration;
-using IFBusTicketSystem.DAL.Repositories;
-using IFBusTicketSystem.Foundation.Types;
+﻿using IFBusTicketSystem.DAL.Interfaces;
+using Microsoft.Practices.Unity;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 
 namespace IFBusTicketSystem.DAL
 {
     public class UnitOfWork: IUnitOfWork
     {
-        private static readonly ISessionFactory SessionFactory;
         private ITransaction _transaction;
 
-        public ISession Session { get; } = SessionFactory.OpenSession();
-
-        public IRaceRepository Races { get; private set; }
-        public IRouteRepository Routes { get; private set; }
-        public ISeatRepository Seats { get; private set; }
-        public IStationRepository Stations { get; private set; }
-        public IStopRepository Stops { get; private set; }
-        public ITicketRepository Tickets { get; private set; }
-        public IUserRepository Users { get; private set; }
-
-        static UnitOfWork()
-        {
-            SessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(ConfigurationManager.ConnectionStrings["BustleDB"].ConnectionString))
-                .Mappings(_ => _.AutoMappings.Add(AutoMap.AssemblyOf<Race>(new StoreConfiguration())))
-                .ExposeConfiguration(_ => new SchemaUpdate(_).Execute(false, true))
-                .BuildSessionFactory();
-        }
-
-        public UnitOfWork()
-        {
-            Races = new RaceRepository(Session);
-            Routes = new RouteRepository(Session);
-            Seats = new SeatRepository(Session);
-            Stations = new StationRepository(Session);
-            Stops = new StopRepository(Session);
-            Tickets = new TicketRepository(Session);
-            Users = new UserRepository(Session);
-        }
+        [Dependency]
+        public ISession Session { get; set; }
+        [Dependency]
+        public IRaceRepository Races { get; set; }
+        [Dependency]
+        public IRouteRepository Routes { get; set; }
+        [Dependency]
+        public ISeatRepository Seats { get; set; }
+        [Dependency]
+        public IStationRepository Stations { get; set; }
+        [Dependency]
+        public IStopRepository Stops { get; set; }
+        [Dependency]
+        public ITicketRepository Tickets { get; set; }
+        [Dependency]
+        public IUserRepository Users { get; set; }
 
         public void BeginTransaction()
         {
@@ -65,23 +44,12 @@ namespace IFBusTicketSystem.DAL
 
                 throw;
             }
-            finally
-            {
-                Session.Dispose();
-            }
         }
 
         public void Rollback()
         {
-            try
-            {
-                if (_transaction != null && _transaction.IsActive)
-                    _transaction.Rollback();
-            }
-            finally
-            {
-                Session.Dispose();
-            }
+            if (_transaction != null && _transaction.IsActive)
+                _transaction.Rollback();
         }
     }
 }

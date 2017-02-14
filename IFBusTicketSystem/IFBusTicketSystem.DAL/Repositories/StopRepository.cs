@@ -6,9 +6,5 @@ namespace IFBusTicketSystem.DAL.Repositories
 {
     public class StopRepository : Repository<Stop>, IStopRepository
     {
-        public StopRepository(ISession session)
-            : base(session)
-        {
-        }
     }
 }
