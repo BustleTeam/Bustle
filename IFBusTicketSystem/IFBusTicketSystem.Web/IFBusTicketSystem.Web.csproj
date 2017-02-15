@@ -41,6 +41,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
@@ -127,6 +131,17 @@
     <Compile Include="PerRequestLifetimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
+    <Compile Include="TransferObjects\MappingProfile\MappingProfile.cs" />
+    <Compile Include="TransferObjects\RaceDetailsDTO.cs" />
+    <Compile Include="TransferObjects\RaceDTO.cs" />
+    <Compile Include="TransferObjects\RouteDetailsDTO.cs" />
+    <Compile Include="TransferObjects\RouteDTO.cs" />
+    <Compile Include="TransferObjects\SeatDTO.cs" />
+    <Compile Include="TransferObjects\StationDTO.cs" />
+    <Compile Include="TransferObjects\StationDetailsDTO.cs" />
+    <Compile Include="TransferObjects\StopDTO.cs" />
+    <Compile Include="TransferObjects\TicketDTO.cs" />
+    <Compile Include="TransferObjects\UserDTO.cs" />
     <Compile Include="UnityResolver.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +157,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="TransferObjects\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IFBusTicketSystem.BL\IFBusTicketSystem.BL.csproj">
