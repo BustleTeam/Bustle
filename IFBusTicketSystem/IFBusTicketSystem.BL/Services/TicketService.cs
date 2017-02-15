@@ -4,25 +4,22 @@ using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.Unity;
 
 namespace IFBusTicketSystem.BL.Services
 {
-    class TicketService : ITicketService
+    public class TicketService : ITicketService
     {
-        private readonly UnitOfWork _unitOfWork;
-
-        public TicketService()
-        {
-            _unitOfWork = new UnitOfWork();
-        }
+        [Dependency]
+        public UnitOfWork UnitOfWork { get; set; }
 
         public void CreateTicket(TicketBaseQuery query)
         {
             if (query.Ticket != null)
             {
-                _unitOfWork.BeginTransaction();
-                _unitOfWork.Tickets.Create(query.Ticket);
-                _unitOfWork.Commit();
+                UnitOfWork.BeginTransaction();
+                UnitOfWork.Tickets.Create(query.Ticket);
+                UnitOfWork.Commit();
             }
         }
 
@@ -30,26 +27,26 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Id > 0)
             {
-                var ticket = _unitOfWork.Tickets.GetById(query.Id);
+                var ticket = UnitOfWork.Tickets.GetById(query.Id);
                 if (ticket != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Tickets.Delete(query.Id);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Tickets.Delete(query.Id);
+                    UnitOfWork.Commit();
                 }
             }
         }
 
         public IEnumerable<Ticket> GetAllTickets()
         {
-            var tickets = _unitOfWork.Tickets.GetAll().ToList();
+            var tickets = UnitOfWork.Tickets.GetAll().ToList();
             return tickets;
 
         }
 
         public Ticket GetTicketById(EntityBaseQuery query)
         {
-            var ticket = _unitOfWork.Tickets.GetById(query.Id);
+            var ticket = UnitOfWork.Tickets.GetById(query.Id);
             if (ticket != null)
             {
                 return ticket;
@@ -61,12 +58,12 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Ticket != null)
             {
-                var ticket = _unitOfWork.Tickets.GetById(query.Id);
+                var ticket = UnitOfWork.Tickets.GetById(query.Id);
                 if (ticket != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Tickets.Update(query.Ticket);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Tickets.Update(query.Ticket);
+                    UnitOfWork.Commit();
                 }
             }
         }

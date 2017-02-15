@@ -3,25 +3,23 @@ using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
+using IFBusTicketSystem.BL.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace IFBusTicketSystem.BL.Services
 {
-    class RouteService
+    public class RouteService : IRouteService
     {
-        private readonly UnitOfWork _unitOfWork;
-
-        public RouteService()
-        {
-            _unitOfWork = new UnitOfWork();
-        }
+        [Dependency]
+        public UnitOfWork UnitOfWork { get; set; }
 
         public void CreateRoute(RouteBaseQuery query)
         {
             if (query.Route != null)
             {
-                _unitOfWork.BeginTransaction();
-                _unitOfWork.Routes.Create(query.Route);
-                _unitOfWork.Commit();
+                UnitOfWork.BeginTransaction();
+                UnitOfWork.Routes.Create(query.Route);
+                UnitOfWork.Commit();
             }
         }
 
@@ -29,26 +27,26 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Id > 0)
             {
-                var route = _unitOfWork.Routes.GetById(query.Id);
+                var route = UnitOfWork.Routes.GetById(query.Id);
                 if (route != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Routes.Delete(query.Id);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Routes.Delete(query.Id);
+                    UnitOfWork.Commit();
                 }
             }
         }
 
         public IEnumerable<Route> GetAllRoutes()
         {
-            var routes = _unitOfWork.Routes.GetAll().ToList();
+            var routes = UnitOfWork.Routes.GetAll().ToList();
             return routes;
 
         }
 
-        public Route GetRouteById(EntityBaseQuery query)
+        public Route GetRaceRouteById(EntityBaseQuery query)
         {
-            var route = _unitOfWork.Routes.GetById(query.Id);
+            var route = UnitOfWork.Routes.GetById(query.Id);
             if (route != null)
             {
                 return route;
@@ -60,12 +58,12 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Route != null)
             {
-                var route = _unitOfWork.Routes.GetById(query.Id);
+                var route = UnitOfWork.Routes.GetById(query.Id);
                 if (route != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Routes.Update(query.Route);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Routes.Update(query.Route);
+                    UnitOfWork.Commit();
                 }
             }
         }

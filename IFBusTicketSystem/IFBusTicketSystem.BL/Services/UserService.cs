@@ -4,25 +4,22 @@ using System.Linq;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types;
 using IFBusTicketSystem.DAL;
+using Microsoft.Practices.Unity;
 
 namespace IFBusTicketSystem.BL.Services
 {
     public class UserService : IUserService
     {
-        private readonly UnitOfWork _unitOfWork;
-
-        public UserService()
-        {
-            _unitOfWork = new UnitOfWork();
-        }
+        [Dependency]
+        public UnitOfWork UnitOfWork { get; set; }
 
         public void CreateUser(UserBaseQuery query)
         {
             if (query.User != null)
             {
-                _unitOfWork.BeginTransaction();
-                _unitOfWork.Users.Create(query.User);
-                _unitOfWork.Commit();
+                UnitOfWork.BeginTransaction();
+                UnitOfWork.Users.Create(query.User);
+                UnitOfWork.Commit();
             }
         }
 
@@ -30,26 +27,26 @@ namespace IFBusTicketSystem.BL.Services
         {
             if(query.Id > 0)
             {               
-                var user = _unitOfWork.Users.GetById(query.Id);
+                var user = UnitOfWork.Users.GetById(query.Id);
                 if (user != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Users.Delete(query.Id);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Users.Delete(query.Id);
+                    UnitOfWork.Commit();
                 }                             
             }
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            var users = _unitOfWork.Users.GetAll().ToList();
+            var users = UnitOfWork.Users.GetAll().ToList();
             return users;
 
         }
 
         public User GetUserById(EntityBaseQuery query)
         {
-            var user = _unitOfWork.Users.GetById(query.Id);
+            var user = UnitOfWork.Users.GetById(query.Id);
             if(user != null)
             {
                 return user;
@@ -61,12 +58,12 @@ namespace IFBusTicketSystem.BL.Services
         {
             if(query.User != null)
             {               
-                var user = _unitOfWork.Users.GetById(query.Id);
+                var user = UnitOfWork.Users.GetById(query.Id);
                 if (user != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Users.Update(query.User);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Users.Update(query.User);
+                    UnitOfWork.Commit();
                 }             
             }
         }

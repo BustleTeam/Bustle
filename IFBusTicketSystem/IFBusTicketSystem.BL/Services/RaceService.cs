@@ -4,25 +4,22 @@ using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.Unity;
 
 namespace IFBusTicketSystem.BL.Services
 {
-    class RaceService : IRaceService
+    public class RaceService : IRaceService
     {
-        private readonly UnitOfWork _unitOfWork;
-
-        public RaceService()
-        {
-            _unitOfWork = new UnitOfWork();
-        }
+        [Dependency]
+        public UnitOfWork UnitOfWork { get; set; }
 
         public void CreateRace(RaceBaseQuery query)
         {
             if (query.Race != null)
             {
-                _unitOfWork.BeginTransaction();
-                _unitOfWork.Races.Create(query.Race);
-                _unitOfWork.Commit();
+                UnitOfWork.BeginTransaction();
+                UnitOfWork.Races.Create(query.Race);
+                UnitOfWork.Commit();
             }
         }
 
@@ -30,26 +27,26 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Id > 0)
             {
-                var race = _unitOfWork.Races.GetById(query.Id);
+                var race = UnitOfWork.Races.GetById(query.Id);
                 if (race != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Races.Delete(query.Id);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Races.Delete(query.Id);
+                    UnitOfWork.Commit();
                 }
             }
         }
 
         public IEnumerable<Race> GetAllRaces()
         {
-            var races = _unitOfWork.Races.GetAll().ToList();
+            var races = UnitOfWork.Races.GetAll().ToList();
             return races;
 
         }
 
         public Race GetRaceById(EntityBaseQuery query)
         {
-            var race = _unitOfWork.Races.GetById(query.Id);
+            var race = UnitOfWork.Races.GetById(query.Id);
             if (race != null)
             {
                 return race;
@@ -61,12 +58,12 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Race != null)
             {
-                var race = _unitOfWork.Races.GetById(query.Id);
+                var race = UnitOfWork.Races.GetById(query.Id);
                 if (race != null)
                 {
-                    _unitOfWork.BeginTransaction();
-                    _unitOfWork.Races.Update(query.Race);
-                    _unitOfWork.Commit();
+                    UnitOfWork.BeginTransaction();
+                    UnitOfWork.Races.Update(query.Race);
+                    UnitOfWork.Commit();
                 }
             }
         }

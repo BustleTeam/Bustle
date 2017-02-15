@@ -1,8 +1,9 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using IFBusTicketSystem.BL.Interfaces;
+using IFBusTicketSystem.BL.Services;
 using IFBusTicketSystem.DAL;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.DAL.MappingConfiguration;
@@ -58,6 +59,14 @@ namespace IFBusTicketSystem.Web
 
         #endregion
 
+        #region Services
+
+            container.RegisterType<IRaceService, RaceService>();
+            container.RegisterType<IRouteService, RouteService>();
+            container.RegisterType<IUserService, UserService>();
+            container.RegisterType<ITicketService, TicketService>();
+
+        #endregion
         }
     }
 }
