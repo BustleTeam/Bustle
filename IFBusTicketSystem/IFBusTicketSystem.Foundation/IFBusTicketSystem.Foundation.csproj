@@ -64,11 +64,11 @@
     <Compile Include="RequestEntities\RouteBaseQuery.cs" />
     <Compile Include="RequestEntities\TicketBaseQuery.cs" />
     <Compile Include="RequestEntities\UserBaseQuery.cs" />
-    <Compile Include="Types\Address.cs" />
+    <Compile Include="Types\Entities\Address.cs" />
     <Compile Include="Types\Entities\Race.cs" />
     <Compile Include="Types\Entities\Route.cs" />
     <Compile Include="Types\Entities\Seat.cs" />
-    <Compile Include="Types\Sex.cs" />
+    <Compile Include="Types\Entities\Sex.cs" />
     <Compile Include="Types\Entities\Station.cs" />
     <Compile Include="Types\Entities\Stop.cs" />
     <Compile Include="Types\Entities\Ticket.cs" />

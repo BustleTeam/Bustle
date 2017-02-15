@@ -9,6 +9,7 @@ using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.DAL.MappingConfiguration;
 using IFBusTicketSystem.DAL.Repositories;
 using IFBusTicketSystem.Foundation.Types;
+using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
@@ -17,13 +18,14 @@ namespace IFBusTicketSystem.Web
 {
     public static class ServiceLocator
     {
+        private static readonly IUnityContainer Container = new UnityContainer();
+
         internal static IUnityContainer GetContainer
         {
             get
             {
-                var container = new UnityContainer();
-                RegisterServices(container);
-                return container;
+                RegisterServices(Container);
+                return Container;
             }
         }
 
@@ -45,7 +47,7 @@ namespace IFBusTicketSystem.Web
                 new PerRequestLifetimeManager(),
                 new InjectionFactory(c => c.Resolve<ISessionFactory>().OpenSession()));
 
-            container.RegisterType<IUnitOfWork, UnitOfWork>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
 
         #region Repositories
 

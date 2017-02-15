@@ -1,4 +1,5 @@
 ﻿using IFBusTicketSystem.Foundation.Types;
+using IFBusTicketSystem.Foundation.Types.Entities;
 
 namespace IFBusTicketSystem.Foundation.RequestEntities
 {

@@ -4,6 +4,7 @@ using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
+using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 
 namespace IFBusTicketSystem.BL.Services

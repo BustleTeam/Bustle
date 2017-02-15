@@ -1,6 +1,7 @@
 ﻿using IFBusTicketSystem.Foundation.Types;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using System.Collections.Generic;
+using IFBusTicketSystem.Foundation.Types.Entities;
 
 namespace IFBusTicketSystem.BL.Interfaces
 {

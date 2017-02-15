@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentNHibernate.Automapping;
-using IFBusTicketSystem.Foundation.Types;
+using IFBusTicketSystem.Foundation.Types.Entities;
 
 namespace IFBusTicketSystem.DAL.MappingConfiguration
 {
@@ -8,7 +8,7 @@ namespace IFBusTicketSystem.DAL.MappingConfiguration
     {
         public override bool ShouldMap(Type type)
         {
-            return type.Namespace == "IFBusTicketSystem.Foundation.Types";
+            return type.Namespace == "IFBusTicketSystem.Foundation.Types.Entities";
         }
 
         public override bool IsComponent(Type type)

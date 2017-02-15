@@ -1,6 +1,6 @@
 ﻿using NHibernate.Validator.Constraints;
 
-namespace IFBusTicketSystem.Foundation.Types
+namespace IFBusTicketSystem.Foundation.Types.Entities
 {
     public class Seat
     {

@@ -1,4 +1,4 @@
-﻿namespace IFBusTicketSystem.Foundation.Types
+﻿namespace IFBusTicketSystem.Foundation.Types.Entities
 {
     public class Address
     {
