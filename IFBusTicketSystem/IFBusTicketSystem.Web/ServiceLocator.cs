@@ -1,18 +1,11 @@
-﻿using System.Configuration;
-using FluentNHibernate.Automapping;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using IFBusTicketSystem.BL.Interfaces;
+﻿using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.BL.Services;
 using IFBusTicketSystem.DAL;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.DAL.MappingConfiguration;
 using IFBusTicketSystem.DAL.Repositories;
-using IFBusTicketSystem.Foundation.Types;
-using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 
 namespace IFBusTicketSystem.Web
 {
@@ -37,11 +30,7 @@ namespace IFBusTicketSystem.Web
         private static void RegisterServices(IUnityContainer container)
         {
             container.RegisterType<ISessionFactory>(new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => Fluently.Configure()
-                    .Database(MsSqlConfiguration.MsSql2012.ConnectionString(ConfigurationManager.ConnectionStrings["BustleDB"].ConnectionString))
-                    .Mappings(_ => _.AutoMappings.Add(AutoMap.AssemblyOf<Race>(new StoreConfiguration())))
-                    .ExposeConfiguration(_ => new SchemaUpdate(_).Execute(false, true))
-                    .BuildSessionFactory()));
+                new InjectionFactory(c => FluentNhibernateConfiguration.GetSessionFactory));
 
             container.RegisterType<ISession>(
                 new PerRequestLifetimeManager(),

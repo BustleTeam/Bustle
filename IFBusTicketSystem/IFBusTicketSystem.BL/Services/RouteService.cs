@@ -1,6 +1,5 @@
 ﻿using IFBusTicketSystem.DAL;
 using IFBusTicketSystem.Foundation.RequestEntities;
-using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
 using IFBusTicketSystem.BL.Interfaces;
