@@ -73,6 +73,12 @@
     <Compile Include="Types\Entities\Stop.cs" />
     <Compile Include="Types\Entities\Ticket.cs" />
     <Compile Include="Types\Entities\User.cs" />
+    <Compile Include="Types\ShortEntities\ShortRace.cs" />
+    <Compile Include="Types\ShortEntities\ShortRoute.cs" />
+    <Compile Include="Types\ShortEntities\ShortSeat.cs" />
+    <Compile Include="Types\ShortEntities\ShortStation.cs" />
+    <Compile Include="Types\ShortEntities\ShortStop.cs" />
+    <Compile Include="Types\ShortEntities\ShortTicket.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

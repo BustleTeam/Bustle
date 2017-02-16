@@ -3,8 +3,7 @@
     public class TicketDTO
     {
         public int Id { get; set; }
-        public string PassengerName { get; set; }
-        public int SeatNumber { get; set; }
-        public string RouteName { get; set; }
+        public UserDTO Passenger { get; set; }
+        public SeatDTO Seat { get; set; }
     }
 }
