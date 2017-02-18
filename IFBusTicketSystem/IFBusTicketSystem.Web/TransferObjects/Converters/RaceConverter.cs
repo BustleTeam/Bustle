@@ -1,57 +1,48 @@
-﻿using AutoMapper;
-using IFBusTicketSystem.Foundation.Types.Entities;
+﻿using IFBusTicketSystem.Foundation.Types.Entities;
 using System.Collections.Generic;
 
 namespace IFBusTicketSystem.Web.TransferObjects.Converters
 {
     public static class RaceConverter
     {
-        public static RaceDTO ToDto(this Race race)
+        /*public static RaceDTO ToDto(this Race race)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Race, RaceDTO>()
-                        .ForMember(dto => dto.Route,
-                            map => map.UseValue(new RouteDTO()))
-                        .ForMember(dto => dto.Stops,
-                            map => map.UseValue(new List<StopDTO>()));
-            });
-
-            IMapper mapper = config.CreateMapper();
-            return mapper.Map<Race, RaceDTO>(race);
+            return MappingProfile.Mapper.Map<Race, RaceDTO>(race);
         }
 
         public static ShortRaceDTO ToDto(this ShortRace race)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ShortRace, ShortRaceDTO>();
-            });
+            return MappingProfile.Mapper.Map<ShortRace, ShortRaceDTO>(race);
+        }
 
-            IMapper mapper = config.CreateMapper();
-            return mapper.Map<ShortRace, ShortRaceDTO>(race);
+        public static IEnumerable<RaceDTO> ToDto(this IEnumerable<Race> race)
+        {
+            return MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(race);
+        }
+
+        public static IEnumerable<ShortRaceDTO> ToDto(this IEnumerable<ShortRace> race)
+        {
+            return MappingProfile.Mapper.Map<IEnumerable<ShortRace>, IEnumerable<ShortRaceDTO>>(race);
         }
 
         public static Race FromDto(this RaceDTO raceDto)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<RaceDTO, Race>()
-                        .ForMember(dto => dto.Route,
-                            map => map.UseValue(new Route()))
-                        .ForMember(dto => dto.Stops,
-                            map => map.UseValue(new List<Stop>()));
-            });
-
-            IMapper mapper = config.CreateMapper();
-            return mapper.Map<RaceDTO, Race>(raceDto);
+            return MappingProfile.Mapper.Map<RaceDTO, Race>(raceDto);
         }
 
         public static ShortRace FromDto(this ShortRaceDTO raceDto)
         {
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ShortRaceDTO, ShortRace>();
-            });
-
-            IMapper mapper = config.CreateMapper();
-            return mapper.Map<ShortRaceDTO, ShortRace>(raceDto);
+            return MappingProfile.Mapper.Map<ShortRaceDTO, ShortRace>(raceDto);
         }
+
+        public static IEnumerable<Race> FromDto(this IEnumerable<RaceDTO> raceDto)
+        {
+            return MappingProfile.Mapper.Map<IEnumerable<RaceDTO>, IEnumerable<Race>>(raceDto);
+        }
+
+        public static IEnumerable<ShortRace> FromDto(this IEnumerable<ShortRaceDTO> raceDto)
+        {
+            return MappingProfile.Mapper.Map<IEnumerable<ShortRaceDTO>, IEnumerable<ShortRace>>(raceDto);
+        }*/
     }
 }

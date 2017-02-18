@@ -1,6 +1,8 @@
-﻿namespace IFBusTicketSystem.Web.TransferObjects
+﻿using IFBusTicketSystem.Foundation.Types.Entities;
+
+namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class ShortRace
+    public class ShortRace : IEntity
     {
         public int Id { get; set; }
         public int RouteId { get; set; }
