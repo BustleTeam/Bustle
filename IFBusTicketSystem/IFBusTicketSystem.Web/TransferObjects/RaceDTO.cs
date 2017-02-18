@@ -1,9 +1,11 @@
-﻿namespace IFBusTicketSystem.Web.TransferObjects
+﻿using System.Collections.Generic;
+
+namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class RaceDTO
+    public class RaceDTO : IEntityDTO
     {
         public int Id { get; set; }
-        public string RouteName { get; set; }
-        public string RouteDescription { get; set; }
+        public RouteDTO Route { get; set; }
+        public IEnumerable<StopDTO> Stops { get; set; } = new List<StopDTO>();
     }
 }

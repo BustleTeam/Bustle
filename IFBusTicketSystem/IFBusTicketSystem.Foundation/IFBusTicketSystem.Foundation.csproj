@@ -65,6 +65,7 @@
     <Compile Include="RequestEntities\TicketBaseQuery.cs" />
     <Compile Include="RequestEntities\UserBaseQuery.cs" />
     <Compile Include="Types\Entities\Address.cs" />
+    <Compile Include="Types\Entities\IEntity.cs" />
     <Compile Include="Types\Entities\Race.cs" />
     <Compile Include="Types\Entities\Route.cs" />
     <Compile Include="Types\Entities\Seat.cs" />
@@ -73,6 +74,12 @@
     <Compile Include="Types\Entities\Stop.cs" />
     <Compile Include="Types\Entities\Ticket.cs" />
     <Compile Include="Types\Entities\User.cs" />
+    <Compile Include="Types\ShortEntities\ShortRace.cs" />
+    <Compile Include="Types\ShortEntities\ShortRoute.cs" />
+    <Compile Include="Types\ShortEntities\ShortSeat.cs" />
+    <Compile Include="Types\ShortEntities\ShortStation.cs" />
+    <Compile Include="Types\ShortEntities\ShortStop.cs" />
+    <Compile Include="Types\ShortEntities\ShortTicket.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

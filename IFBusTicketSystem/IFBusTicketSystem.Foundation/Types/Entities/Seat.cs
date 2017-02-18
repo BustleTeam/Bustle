@@ -2,7 +2,7 @@
 
 namespace IFBusTicketSystem.Foundation.Types.Entities
 {
-    public class Seat
+    public class Seat : IEntity
     {
         public virtual int Id { get; set; }
         public virtual int Number { get; set; }
