@@ -4,49 +4,54 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
 using IFBusTicketSystem.Web.TransferObjects.Converters;
 using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
-    public class UsersController : ApiController
+    public class RacesController : ApiController
     {
         [Dependency]
-        public IUserService UserService { get; set; }
+        public IRaceService RaceService { get; set; }
 
         public IHttpActionResult GetAll()
         {
-            var users = UserService.GetAllUsers();
-            return users != null ? Ok(users.ToDto<User, UserDTO>()) : (IHttpActionResult)NotFound();
+            var races = RaceService.GetAllRaces();
+            return races != null ? Ok(races.ToDto<Race, RaceDTO>()) : (IHttpActionResult)NotFound();
         }
 
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
-            var user = UserService.GetUserById(query);
-            return user != null ? Ok(user.ToDto<User, UserDTO>()) : (IHttpActionResult)NotFound();
+            var race = RaceService.GetRaceById(query);
+            return race != null ? Ok(race.ToDto<Race, RaceDTO>()) : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
-        public IHttpActionResult Create([FromBody]UserDTO user)
+        public IHttpActionResult Create([FromBody]RaceDTO race)
         {
-            if (user == null)
+            if (race == null)
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(user.FromDto<UserDTO, User>());
-            UserService.CreateUser(query);
+            var query = new RaceBaseQuery(race.FromDto<RaceDTO, Race>());
+            RaceService.CreateRace(query);
             return Ok();
         }
 
         [HttpPut]
-        public IHttpActionResult Update(int id, [FromBody]UserDTO user)
+        public IHttpActionResult Update(int id, [FromBody]RaceDTO race)
         {
-            if (id <= 0 || user == null)
+            if (id <= 0 || race == null)
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(id, user.FromDto<UserDTO, User>());
-            UserService.UpdateUser(query);
+            var query = new RaceBaseQuery(id, race.FromDto<RaceDTO, Race>());
+            RaceService.UpdateRace(query);
             return Ok();
         }
 
@@ -57,7 +62,7 @@ namespace IFBusTicketSystem.Web.Controllers
                 return BadRequest();
             }
             var query = new EntityBaseQuery(id);
-            UserService.DeleteUser(query);
+            RaceService.DeleteRace(query);
             return Ok();
         }
     }

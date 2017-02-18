@@ -2,7 +2,7 @@
 
 namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class RouteDTO
+    public class RouteDTO : IEntityDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

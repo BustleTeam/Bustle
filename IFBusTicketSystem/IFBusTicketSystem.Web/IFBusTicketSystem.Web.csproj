@@ -125,6 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\RacesController.cs" />
+    <Compile Include="Controllers\RoutesController.cs" />
+    <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -134,13 +137,6 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="TransferObjects\Converters\Converter.cs" />
     <Compile Include="TransferObjects\Converters\MappingProfile.cs" />
-    <Compile Include="TransferObjects\Converters\RaceConverter.cs" />
-    <Compile Include="TransferObjects\Converters\RouteConverter.cs" />
-    <Compile Include="TransferObjects\Converters\SeatConverter.cs" />
-    <Compile Include="TransferObjects\Converters\StationConverter.cs" />
-    <Compile Include="TransferObjects\Converters\StopConverter.cs" />
-    <Compile Include="TransferObjects\Converters\TicketConverter.cs" />
-    <Compile Include="TransferObjects\Converters\UserConverter.cs" />
     <Compile Include="TransferObjects\IEntityDTO.cs" />
     <Compile Include="TransferObjects\RaceDTO.cs" />
     <Compile Include="TransferObjects\ShortSeatDTO.cs" />

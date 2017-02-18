@@ -7,7 +7,7 @@ namespace IFBusTicketSystem.BL.Interfaces
 {
     public interface IRouteService
     {
-        Route GetRaceRouteById(EntityBaseQuery query);
+        Route GetRouteById(EntityBaseQuery query);
         IEnumerable<Route> GetAllRoutes();
         void CreateRoute(RouteBaseQuery query);
         void UpdateRoute(RouteBaseQuery query);

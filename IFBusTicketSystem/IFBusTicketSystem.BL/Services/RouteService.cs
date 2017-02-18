@@ -44,7 +44,7 @@ namespace IFBusTicketSystem.BL.Services
 
         }
 
-        public Route GetRaceRouteById(EntityBaseQuery query)
+        public Route GetRouteById(EntityBaseQuery query)
         {
             var route = UnitOfWork.Routes.GetById(query.Id);
             if (route != null)

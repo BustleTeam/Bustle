@@ -1,6 +1,6 @@
 ﻿namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class StopDTO
+    public class StopDTO : IEntityDTO
     {
         public int Id { get; set; }
         public StationDTO Station { get; set; }

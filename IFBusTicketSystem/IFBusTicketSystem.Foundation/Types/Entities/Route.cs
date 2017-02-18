@@ -2,7 +2,7 @@
 
 namespace IFBusTicketSystem.Foundation.Types.Entities
 {
-    public class Route
+    public class Route : IEntity
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }

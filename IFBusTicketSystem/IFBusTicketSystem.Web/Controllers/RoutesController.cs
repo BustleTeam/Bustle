@@ -8,45 +8,45 @@ using System.Web.Http;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
-    public class UsersController : ApiController
+    public class RoutesController : ApiController
     {
         [Dependency]
-        public IUserService UserService { get; set; }
+        public IRouteService RouteService { get; set; }
 
         public IHttpActionResult GetAll()
         {
-            var users = UserService.GetAllUsers();
-            return users != null ? Ok(users.ToDto<User, UserDTO>()) : (IHttpActionResult)NotFound();
+            var routes = RouteService.GetAllRoutes();
+            return routes != null ? Ok(routes.ToDto<Route, RouteDTO>()) : (IHttpActionResult)NotFound();
         }
 
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
-            var user = UserService.GetUserById(query);
-            return user != null ? Ok(user.ToDto<User, UserDTO>()) : (IHttpActionResult)NotFound();
+            var route = RouteService.GetRouteById(query);
+            return route != null ? Ok(route.ToDto<Route, RouteDTO>()) : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
-        public IHttpActionResult Create([FromBody]UserDTO user)
+        public IHttpActionResult Create([FromBody]RouteDTO route)
         {
-            if (user == null)
+            if (route == null)
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(user.FromDto<UserDTO, User>());
-            UserService.CreateUser(query);
+            var query = new RouteBaseQuery(route.FromDto<RouteDTO, Route>());
+            RouteService.CreateRoute(query);
             return Ok();
         }
 
         [HttpPut]
-        public IHttpActionResult Update(int id, [FromBody]UserDTO user)
+        public IHttpActionResult Update(int id, [FromBody]RouteDTO route)
         {
-            if (id <= 0 || user == null)
+            if (id <= 0 || route == null)
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(id, user.FromDto<UserDTO, User>());
-            UserService.UpdateUser(query);
+            var query = new RouteBaseQuery(id, route.FromDto<RouteDTO, Route>());
+            RouteService.UpdateRoute(query);
             return Ok();
         }
 
@@ -57,7 +57,7 @@ namespace IFBusTicketSystem.Web.Controllers
                 return BadRequest();
             }
             var query = new EntityBaseQuery(id);
-            UserService.DeleteUser(query);
+            RouteService.DeleteRoute(query);
             return Ok();
         }
     }

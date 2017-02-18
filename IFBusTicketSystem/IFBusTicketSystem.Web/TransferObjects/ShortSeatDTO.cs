@@ -1,6 +1,6 @@
 ﻿namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class ShortSeatDTO
+    public class ShortSeatDTO : IEntityDTO
     {
         public int Id { get; set; }
         public int Number { get; set; }

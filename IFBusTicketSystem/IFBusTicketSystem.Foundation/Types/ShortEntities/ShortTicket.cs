@@ -1,6 +1,8 @@
-﻿namespace IFBusTicketSystem.Web.TransferObjects
+﻿using IFBusTicketSystem.Foundation.Types.Entities;
+
+namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class ShortTicket
+    public class ShortTicket : IEntity
     {
         public int Id { get; set; }
         public int PassengerId { get; set; }
