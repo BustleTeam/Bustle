@@ -5,9 +5,11 @@ using IFBusTicketSystem.Web.TransferObjects;
 using IFBusTicketSystem.Web.TransferObjects.Converters;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
+using IFBusTicketSystem.Web.Filters;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
+    [CheckException]
     public class RoutesController : ApiController
     {
         [Dependency]

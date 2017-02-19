@@ -10,9 +10,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using IFBusTicketSystem.Web.Filters;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
+    [CheckException]
     public class RacesController : ApiController
     {
         [Dependency]
