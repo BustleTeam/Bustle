@@ -7,5 +7,6 @@ namespace IFBusTicketSystem.Foundation.Types.Entities
         public virtual int Id { get; set; }
         public virtual Route Route { get; set; }
         public virtual IEnumerable<Stop> Stops { get; set; } = new List<Stop>();
+        public virtual IEnumerable<Seat> Seats { get; set; } = new List<Seat>();
     }
 }

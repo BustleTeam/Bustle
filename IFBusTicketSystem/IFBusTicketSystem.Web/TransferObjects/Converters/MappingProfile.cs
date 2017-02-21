@@ -4,23 +4,34 @@ using System.Collections.Generic;
 
 namespace IFBusTicketSystem.Web.TransferObjects.Converters
 {
-    public class MappingProfile
+    public static class MappingProfile
     {
-        public static IMapper Mapper = Config.CreateMapper();
+        public static IMapper Mapper
+        {
+            get
+            {
+                return Config.CreateMapper();
+            }
+        }
 
-        public static MapperConfiguration Config = new MapperConfiguration(cfg => {
+        private static readonly MapperConfiguration Config = new MapperConfiguration(cfg =>
+        {
             cfg.CreateMap<Race, RaceDTO>()
-                    .ForMember(dto => dto.Route,
-                        map => map.UseValue(new RouteDTO()))
-                    .ForMember(dto => dto.Stops,
-                        map => map.UseValue(new List<StopDTO>()));
+                .ForMember(dto => dto.Route,
+                    map => map.UseValue(new RouteDTO()))
+                .ForMember(dto => dto.Stops,
+                    map => map.UseValue(new List<StopDTO>()))
+                .ForMember(dto => dto.Seats, 
+                    map => map.UseValue(new List<SeatDTO>()));
 
             cfg.CreateMap<RaceDTO, Race>()
                         .ForMember(dto => dto.Route,
                             map => map.UseValue(new Route()))
                         .ForMember(dto => dto.Stops,
-                            map => map.UseValue(new List<Stop>()));
-
+                            map => map.UseValue(new List<Stop>()))
+                        .ForMember(dto => dto.Seats,
+                            map => map.UseValue(new List<Seat>()));
+            
             cfg.CreateMap<ShortRace, ShortRaceDTO>().ReverseMap();
 
             cfg.CreateMap<Route, RouteDTO>()
@@ -32,13 +43,7 @@ namespace IFBusTicketSystem.Web.TransferObjects.Converters
 
             cfg.CreateMap<ShortRoute, ShortRouteDTO>().ReverseMap();
 
-            cfg.CreateMap<Seat, SeatDTO>()
-                        .ForMember(dto => dto.Race,
-                            map => map.UseValue(new RaceDTO()));
-
-            cfg.CreateMap<SeatDTO, Seat>()
-                        .ForMember(dto => dto.Race,
-                            map => map.UseValue(new Race()));
+            cfg.CreateMap<Seat, SeatDTO>().ReverseMap();
 
             cfg.CreateMap<ShortSeat, ShortSeatDTO>().ReverseMap();
 
