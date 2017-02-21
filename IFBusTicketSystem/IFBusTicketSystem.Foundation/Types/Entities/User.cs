@@ -1,6 +1,6 @@
 ﻿namespace IFBusTicketSystem.Foundation.Types.Entities
 {
-    public class User : IEntity
+    public class User
     {
         public virtual int Id { get; set; }
         public virtual string Email { get; set; }

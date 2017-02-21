@@ -6,6 +6,7 @@ using IFBusTicketSystem.Web.TransferObjects.Converters;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
+using System.Collections.Generic;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -18,14 +19,16 @@ namespace IFBusTicketSystem.Web.Controllers
         public IHttpActionResult GetAll()
         {
             var routes = RouteService.GetAllRoutes();
-            return routes != null ? Ok(routes.ToDto<Route, RouteDTO>()) : (IHttpActionResult)NotFound();
+            return routes != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Route>, IEnumerable<RouteDTO>>(routes)) 
+                : (IHttpActionResult)NotFound();
         }
 
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
             var route = RouteService.GetRouteById(query);
-            return route != null ? Ok(route.ToDto<Route, RouteDTO>()) : (IHttpActionResult)NotFound();
+            return route != null ? Ok(MappingProfile.Mapper.Map<Route, RouteDTO>(route)) 
+                : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
@@ -35,7 +38,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new RouteBaseQuery(route.FromDto<RouteDTO, Route>());
+            var query = new RouteBaseQuery(MappingProfile.Mapper.Map<RouteDTO, Route>(route));
             RouteService.CreateRoute(query);
             return Ok();
         }
@@ -47,7 +50,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new RouteBaseQuery(id, route.FromDto<RouteDTO, Route>());
+            var query = new RouteBaseQuery(id, MappingProfile.Mapper.Map<RouteDTO, Route>(route));
             RouteService.UpdateRoute(query);
             return Ok();
         }

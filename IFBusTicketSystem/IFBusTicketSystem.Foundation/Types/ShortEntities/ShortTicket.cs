@@ -2,7 +2,7 @@
 
 namespace IFBusTicketSystem.Web.TransferObjects
 {
-    public class ShortTicket : IEntity
+    public class ShortTicket
     {
         public int Id { get; set; }
         public int PassengerId { get; set; }

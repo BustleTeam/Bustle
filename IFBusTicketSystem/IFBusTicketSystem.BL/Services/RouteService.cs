@@ -1,25 +1,23 @@
-﻿using IFBusTicketSystem.DAL;
-using IFBusTicketSystem.Foundation.RequestEntities;
+﻿using IFBusTicketSystem.Foundation.RequestEntities;
 using System.Collections.Generic;
 using System.Linq;
 using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
+using IFBusTicketSystem.DAL.Interfaces;
 
 namespace IFBusTicketSystem.BL.Services
 {
     public class RouteService : IRouteService
     {
         [Dependency]
-        public UnitOfWork UnitOfWork { get; set; }
+        public IRouteRepository Routes { get; set; }
 
         public void CreateRoute(RouteBaseQuery query)
         {
             if (query.Route != null)
             {
-                UnitOfWork.BeginTransaction();
-                UnitOfWork.Routes.Create(query.Route);
-                UnitOfWork.Commit();
+                Routes.Create(query.Route);
             }
         }
 
@@ -27,43 +25,32 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Id > 0)
             {
-                var route = UnitOfWork.Routes.GetById(query.Id);
+                var route = Routes.GetById(query.Id);
                 if (route != null)
                 {
-                    UnitOfWork.BeginTransaction();
-                    UnitOfWork.Routes.Delete(query.Id);
-                    UnitOfWork.Commit();
+                    Routes.Delete(query.Id);
                 }
             }
         }
 
         public IEnumerable<Route> GetAllRoutes()
         {
-            var routes = UnitOfWork.Routes.GetAll().ToList();
-            return routes;
-
+            return Routes.GetAll().ToList();
         }
 
         public Route GetRouteById(EntityBaseQuery query)
         {
-            var route = UnitOfWork.Routes.GetById(query.Id);
-            if (route != null)
-            {
-                return route;
-            }
-            return null;
+            return Routes.GetById(query.Id);
         }
 
         public void UpdateRoute(RouteBaseQuery query)
         {
             if (query.Route != null)
             {
-                var route = UnitOfWork.Routes.GetById(query.Id);
+                var route = Routes.GetById(query.Id);
                 if (route != null)
                 {
-                    UnitOfWork.BeginTransaction();
-                    UnitOfWork.Routes.Update(query.Route);
-                    UnitOfWork.Commit();
+                    Routes.Update(query.Route);
                 }
             }
         }

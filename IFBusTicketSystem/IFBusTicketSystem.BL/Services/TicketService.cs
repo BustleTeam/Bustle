@@ -1,26 +1,23 @@
 ﻿using IFBusTicketSystem.BL.Interfaces;
-using IFBusTicketSystem.DAL;
 using IFBusTicketSystem.Foundation.RequestEntities;
-using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
+using IFBusTicketSystem.DAL.Interfaces;
 
 namespace IFBusTicketSystem.BL.Services
 {
     public class TicketService : ITicketService
     {
         [Dependency]
-        public UnitOfWork UnitOfWork { get; set; }
+        public ITicketRepository Tickets { get; set; }
 
         public void CreateTicket(TicketBaseQuery query)
         {
             if (query.Ticket != null)
             {
-                UnitOfWork.BeginTransaction();
-                UnitOfWork.Tickets.Create(query.Ticket);
-                UnitOfWork.Commit();
+                Tickets.Create(query.Ticket);
             }
         }
 
@@ -28,43 +25,32 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Id > 0)
             {
-                var ticket = UnitOfWork.Tickets.GetById(query.Id);
+                var ticket = Tickets.GetById(query.Id);
                 if (ticket != null)
                 {
-                    UnitOfWork.BeginTransaction();
-                    UnitOfWork.Tickets.Delete(query.Id);
-                    UnitOfWork.Commit();
+                    Tickets.Delete(query.Id);
                 }
             }
         }
 
         public IEnumerable<Ticket> GetAllTickets()
         {
-            var tickets = UnitOfWork.Tickets.GetAll().ToList();
-            return tickets;
-
+            return Tickets.GetAll().ToList();
         }
 
         public Ticket GetTicketById(EntityBaseQuery query)
         {
-            var ticket = UnitOfWork.Tickets.GetById(query.Id);
-            if (ticket != null)
-            {
-                return ticket;
-            }
-            return null;
+            return Tickets.GetById(query.Id);
         }
 
         public void UpdateTicket(TicketBaseQuery query)
         {
             if (query.Ticket != null)
             {
-                var ticket = UnitOfWork.Tickets.GetById(query.Id);
+                var ticket = Tickets.GetById(query.Id);
                 if (ticket != null)
                 {
-                    UnitOfWork.BeginTransaction();
-                    UnitOfWork.Tickets.Update(query.Ticket);
-                    UnitOfWork.Commit();
+                    Tickets.Update(query.Ticket);
                 }
             }
         }

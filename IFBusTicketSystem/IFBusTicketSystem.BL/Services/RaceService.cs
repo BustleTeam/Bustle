@@ -1,26 +1,23 @@
 ﻿using IFBusTicketSystem.BL.Interfaces;
-using IFBusTicketSystem.DAL;
 using IFBusTicketSystem.Foundation.RequestEntities;
-using IFBusTicketSystem.Foundation.Types;
 using System.Collections.Generic;
 using System.Linq;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
+using IFBusTicketSystem.DAL.Interfaces;
 
 namespace IFBusTicketSystem.BL.Services
 {
     public class RaceService : IRaceService
     {
         [Dependency]
-        public UnitOfWork UnitOfWork { get; set; }
+        public IRaceRepository Races { get; set; }
 
         public void CreateRace(RaceBaseQuery query)
         {
             if (query.Race != null)
             {
-                UnitOfWork.BeginTransaction();
-                UnitOfWork.Races.Create(query.Race);
-                UnitOfWork.Commit();
+                Races.Create(query.Race);
             }
         }
 
@@ -28,43 +25,32 @@ namespace IFBusTicketSystem.BL.Services
         {
             if (query.Id > 0)
             {
-                var race = UnitOfWork.Races.GetById(query.Id);
+                var race = Races.GetById(query.Id);
                 if (race != null)
                 {
-                    UnitOfWork.BeginTransaction();
-                    UnitOfWork.Races.Delete(query.Id);
-                    UnitOfWork.Commit();
+                    Races.Delete(query.Id);
                 }
             }
         }
 
         public IEnumerable<Race> GetAllRaces()
-        {
-            var races = UnitOfWork.Races.GetAll().ToList();
-            return races;
-
+        {        
+            return Races.GetAll().ToList();
         }
 
         public Race GetRaceById(EntityBaseQuery query)
         {
-            var race = UnitOfWork.Races.GetById(query.Id);
-            if (race != null)
-            {
-                return race;
-            }
-            return null;
+            return Races.GetById(query.Id);
         }
 
         public void UpdateRace(RaceBaseQuery query)
         {
             if (query.Race != null)
             {
-                var race = UnitOfWork.Races.GetById(query.Id);
+                var race = Races.GetById(query.Id);
                 if (race != null)
                 {
-                    UnitOfWork.BeginTransaction();
-                    UnitOfWork.Races.Update(query.Race);
-                    UnitOfWork.Commit();
+                    Races.Update(query.Race);
                 }
             }
         }

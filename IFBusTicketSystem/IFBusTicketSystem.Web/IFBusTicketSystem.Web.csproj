@@ -144,9 +144,7 @@
     <Compile Include="PerRequestLifetimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
-    <Compile Include="TransferObjects\Converters\Converter.cs" />
     <Compile Include="TransferObjects\Converters\MappingProfile.cs" />
-    <Compile Include="TransferObjects\IEntityDTO.cs" />
     <Compile Include="TransferObjects\RaceDTO.cs" />
     <Compile Include="TransferObjects\ShortSeatDTO.cs" />
     <Compile Include="TransferObjects\ShortRaceDTO.cs" />

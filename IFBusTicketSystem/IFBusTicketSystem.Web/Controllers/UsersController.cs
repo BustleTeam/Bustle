@@ -6,6 +6,7 @@ using IFBusTicketSystem.Web.TransferObjects.Converters;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
+using System.Collections.Generic;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -18,14 +19,16 @@ namespace IFBusTicketSystem.Web.Controllers
         public IHttpActionResult GetAll()
         {
             var users = UserService.GetAllUsers();
-            return users != null ? Ok(users.ToDto<User, UserDTO>()) : (IHttpActionResult)NotFound();
+            return users != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users)) 
+                : (IHttpActionResult)NotFound();
         }
 
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
             var user = UserService.GetUserById(query);
-            return user != null ? Ok(user.ToDto<User, UserDTO>()) : (IHttpActionResult)NotFound();
+            return user != null ? Ok(MappingProfile.Mapper.Map<User, UserDTO>(user)) 
+                : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
@@ -35,7 +38,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(user.FromDto<UserDTO, User>());
+            var query = new UserBaseQuery(MappingProfile.Mapper.Map<UserDTO, User>(user));
             UserService.CreateUser(query);
             return Ok();
         }
@@ -47,7 +50,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(id, user.FromDto<UserDTO, User>());
+            var query = new UserBaseQuery(id, MappingProfile.Mapper.Map<UserDTO, User>(user));
             UserService.UpdateUser(query);
             return Ok();
         }

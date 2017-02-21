@@ -4,14 +4,9 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
 using IFBusTicketSystem.Web.TransferObjects.Converters;
 using Microsoft.Practices.Unity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
-using NLog;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -24,14 +19,16 @@ namespace IFBusTicketSystem.Web.Controllers
         public IHttpActionResult GetAll()
         {
             var tickets = TicketService.GetAllTickets();
-            return tickets != null ? Ok(tickets.ToDto<Ticket, TicketDTO>()) : (IHttpActionResult)NotFound();
+            return tickets != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Ticket>, IEnumerable<TicketDTO>>(tickets)) 
+                : (IHttpActionResult)NotFound();
         }
 
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
             var ticket = TicketService.GetTicketById(query);
-            return ticket != null ? Ok(ticket.ToDto<Ticket, TicketDTO>()) : (IHttpActionResult)NotFound();
+            return ticket != null ? Ok(MappingProfile.Mapper.Map<Ticket, TicketDTO>(ticket)) 
+                : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
@@ -41,7 +38,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new TicketBaseQuery(ticket.FromDto<TicketDTO, Ticket>());
+            var query = new TicketBaseQuery(MappingProfile.Mapper.Map<TicketDTO, Ticket>(ticket));
             TicketService.CreateTicket(query);
             return Ok();
         }
@@ -53,7 +50,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new TicketBaseQuery(id, ticket.FromDto<TicketDTO, Ticket>());
+            var query = new TicketBaseQuery(id, MappingProfile.Mapper.Map<TicketDTO, Ticket>(ticket));
             TicketService.UpdateTicket(query);
             return Ok();
         }

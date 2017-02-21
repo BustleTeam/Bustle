@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using IFBusTicketSystem.DAL.Interfaces;
 using Microsoft.Practices.Unity;
-using NHibernate;
 using NHibernate.Linq;
 
 namespace IFBusTicketSystem.DAL.Repositories
@@ -10,31 +9,43 @@ namespace IFBusTicketSystem.DAL.Repositories
         where T : class 
     {
         [Dependency]
-        public ISession Session { get; set; }
+        public UnitOfWork UnitOfWork { get; set; }
 
         public void Create(T entity)
         {
-            Session.Save(entity);
+            UnitOfWork.BeginTransaction();
+            UnitOfWork.Session.Save(entity);
+            UnitOfWork.Commit();          
         }
 
         public void Delete(int id)
         {
-             Session.Delete(Session.Load<T>(id));
+            UnitOfWork.BeginTransaction();
+            UnitOfWork.Session.Delete(UnitOfWork.Session.Load<T>(id));
+            UnitOfWork.Commit();
         }
 
         public IQueryable<T> GetAll()
         {
-            return Session.Query<T>();
+            UnitOfWork.BeginTransaction();
+            var query = UnitOfWork.Session.Query<T>();
+            UnitOfWork.Commit();
+            return query;
         }
 
         public T GetById(int id)
         {
-            return Session.Get<T>(id);
+            UnitOfWork.BeginTransaction();
+            var type = UnitOfWork.Session.Get<T>(id);
+            UnitOfWork.Commit();
+            return type;
         }
 
         public void Update(T entity)
         {
-            Session.Update(entity);
+            UnitOfWork.BeginTransaction();
+            UnitOfWork.Session.Update(entity);
+            UnitOfWork.Commit();
         }
     }
 }

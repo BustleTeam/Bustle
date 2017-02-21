@@ -4,11 +4,7 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
 using IFBusTicketSystem.Web.TransferObjects.Converters;
 using Microsoft.Practices.Unity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 
@@ -23,14 +19,16 @@ namespace IFBusTicketSystem.Web.Controllers
         public IHttpActionResult GetAll()
         {
             var races = RaceService.GetAllRaces();
-            return races != null ? Ok(races.ToDto<Race, RaceDTO>()) : (IHttpActionResult)NotFound();
+            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races)) 
+                : (IHttpActionResult)NotFound();
         }
 
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
             var race = RaceService.GetRaceById(query);
-            return race != null ? Ok(race.ToDto<Race, RaceDTO>()) : (IHttpActionResult)NotFound();
+            return race != null ? Ok(MappingProfile.Mapper.Map<Race, RaceDTO>(race)) 
+                : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
@@ -40,7 +38,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new RaceBaseQuery(race.FromDto<RaceDTO, Race>());
+            var query = new RaceBaseQuery(MappingProfile.Mapper.Map<RaceDTO, Race>(race));
             RaceService.CreateRace(query);
             return Ok();
         }
@@ -52,7 +50,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new RaceBaseQuery(id, race.FromDto<RaceDTO, Race>());
+            var query = new RaceBaseQuery(id, MappingProfile.Mapper.Map<RaceDTO, Race>(race));
             RaceService.UpdateRace(query);
             return Ok();
         }
