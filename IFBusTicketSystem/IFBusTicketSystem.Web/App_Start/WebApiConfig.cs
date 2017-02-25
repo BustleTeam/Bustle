@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using IFBusTicketSystem.Web.Filters;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace IFBusTicketSystem.Web
@@ -20,6 +21,8 @@ namespace IFBusTicketSystem.Web
             );
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            config.Filters.Add(new ValidateModelAttribute());
         }
     }
 }

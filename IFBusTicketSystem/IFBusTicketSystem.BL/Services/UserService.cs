@@ -22,15 +22,12 @@ namespace IFBusTicketSystem.BL.Services
         }
 
         public void DeleteUser(EntityBaseQuery query)
-        {
-            if(query.Id > 0)
-            {               
-                var user = Users.GetById(query.Id);
-                if (user != null)
-                {
-                    Users.Delete(query.Id);
-                }                             
-            }
+        {              
+            var user = Users.GetById(query.Id);
+            if (user != null)
+            {
+                Users.Delete(query.Id);
+            }                             
         }
 
         public IEnumerable<User> GetAllUsers()

@@ -23,13 +23,10 @@ namespace IFBusTicketSystem.BL.Services
 
         public void DeleteRace(EntityBaseQuery query)
         {
-            if (query.Id > 0)
+            var race = Races.GetById(query.Id);
+            if (race != null)
             {
-                var race = Races.GetById(query.Id);
-                if (race != null)
-                {
-                    Races.Delete(query.Id);
-                }
+                Races.Delete(query.Id);
             }
         }
 

@@ -23,6 +23,7 @@ namespace IFBusTicketSystem.Web.Controllers
                 : (IHttpActionResult)NotFound();
         }
 
+        [Route("routes/{id:int:min(1)}")]
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
@@ -44,9 +45,10 @@ namespace IFBusTicketSystem.Web.Controllers
         }
 
         [HttpPut]
+        [Route("routes/{id:int:min(1)}")]
         public IHttpActionResult Update(int id, [FromBody]RouteDTO route)
         {
-            if (id <= 0 || route == null)
+            if (route == null)
             {
                 return BadRequest();
             }
@@ -55,12 +57,9 @@ namespace IFBusTicketSystem.Web.Controllers
             return Ok();
         }
 
+        [Route("routes/{id:int:min(1)}")]
         public IHttpActionResult Delete(int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest();
-            }
             var query = new EntityBaseQuery(id);
             RouteService.DeleteRoute(query);
             return Ok();

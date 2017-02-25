@@ -23,13 +23,10 @@ namespace IFBusTicketSystem.BL.Services
 
         public void DeleteRoute(EntityBaseQuery query)
         {
-            if (query.Id > 0)
+            var route = Routes.GetById(query.Id);
+            if (route != null)
             {
-                var route = Routes.GetById(query.Id);
-                if (route != null)
-                {
-                    Routes.Delete(query.Id);
-                }
+                Routes.Delete(query.Id);
             }
         }
 
