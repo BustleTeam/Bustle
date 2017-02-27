@@ -5,6 +5,7 @@ using System.Linq;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
+using IFBusTicketSystem.BL.Validators;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -12,17 +13,18 @@ namespace IFBusTicketSystem.BL.Services
     {
         [Dependency]
         public IRaceRepository Races { get; set; }
+        [Dependency]
+        public IValidationService ValidationService { get; set; }
 
         public void CreateRace(RaceBaseQuery query)
         {
-            if (query.Race != null)
-            {
-                Races.Create(query.Race);
-            }
+            ValidationService.Validate(query, new RaceBaseQueryValidator());
+            Races.Create(query.Race);
         }
 
         public void DeleteRace(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             var race = Races.GetById(query.Id);
             if (race != null)
             {
@@ -37,18 +39,17 @@ namespace IFBusTicketSystem.BL.Services
 
         public Race GetRaceById(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             return Races.GetById(query.Id);
         }
 
         public void UpdateRace(RaceBaseQuery query)
         {
-            if (query.Race != null)
+            ValidationService.Validate(query, new RaceBaseQueryValidator());
+            var race = Races.GetById(query.Id);
+            if (race != null)
             {
-                var race = Races.GetById(query.Id);
-                if (race != null)
-                {
-                    Races.Update(query.Race);
-                }
+                Races.Update(query.Race);
             }
         }
     }

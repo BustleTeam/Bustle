@@ -5,6 +5,7 @@ using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
+using IFBusTicketSystem.BL.Validators;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -12,17 +13,18 @@ namespace IFBusTicketSystem.BL.Services
     {
         [Dependency]
         public IUserRepository Users { get; set; }
+        [Dependency]
+        public IValidationService ValidationService { get; set; }
 
         public void CreateUser(UserBaseQuery query)
         {
-            if (query.User != null)
-            {
-                Users.Create(query.User);
-            }
+            ValidationService.Validate(query, new UserBaseQueryValidator());
+            Users.Create(query.User);
         }
 
         public void DeleteUser(EntityBaseQuery query)
-        {              
+        {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             var user = Users.GetById(query.Id);
             if (user != null)
             {
@@ -37,19 +39,18 @@ namespace IFBusTicketSystem.BL.Services
 
         public User GetUserById(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             return Users.GetById(query.Id);
         }
 
         public void UpdateUser(UserBaseQuery query)
         {
-            if(query.User != null)
-            {               
-                var user = Users.GetById(query.Id);
-                if (user != null)
-                {
-                    Users.Update(query.User);
-                }             
-            }
+            ValidationService.Validate(query, new UserBaseQueryValidator());
+            var user = Users.GetById(query.Id);
+            if (user != null)
+            {
+                Users.Update(query.User);
+            }             
         }
     }
 }

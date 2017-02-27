@@ -2,7 +2,7 @@
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
-using IFBusTicketSystem.Web.TransferObjects.Converters;
+using IFBusTicketSystem.Web.TransferObjects.Mapping;
 using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;

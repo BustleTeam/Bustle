@@ -5,6 +5,7 @@ using System.Linq;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
+using IFBusTicketSystem.BL.Validators;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -12,17 +13,18 @@ namespace IFBusTicketSystem.BL.Services
     {
         [Dependency]
         public ITicketRepository Tickets { get; set; }
+        [Dependency]
+        public IValidationService ValidationService { get; set; }
 
         public void CreateTicket(TicketBaseQuery query)
         {
-            if (query.Ticket != null)
-            {
-                Tickets.Create(query.Ticket);
-            }
+            ValidationService.Validate(query, new TicketBaseQueryValidator());
+            Tickets.Create(query.Ticket);
         }
 
         public void DeleteTicket(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             var ticket = Tickets.GetById(query.Id);
             if (ticket != null)
             {
@@ -37,18 +39,17 @@ namespace IFBusTicketSystem.BL.Services
 
         public Ticket GetTicketById(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             return Tickets.GetById(query.Id);
         }
 
         public void UpdateTicket(TicketBaseQuery query)
         {
-            if (query.Ticket != null)
+            ValidationService.Validate(query, new TicketBaseQueryValidator());
+            var ticket = Tickets.GetById(query.Id);
+            if (ticket != null)
             {
-                var ticket = Tickets.GetById(query.Id);
-                if (ticket != null)
-                {
-                    Tickets.Update(query.Ticket);
-                }
+                Tickets.Update(query.Ticket);
             }
         }
     }

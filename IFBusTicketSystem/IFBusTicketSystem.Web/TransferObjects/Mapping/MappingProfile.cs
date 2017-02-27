@@ -2,7 +2,7 @@
 using IFBusTicketSystem.Foundation.Types.Entities;
 using System.Collections.Generic;
 
-namespace IFBusTicketSystem.Web.TransferObjects.Converters
+namespace IFBusTicketSystem.Web.TransferObjects.Mapping
 {
     public static class MappingProfile
     {

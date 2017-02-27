@@ -55,7 +55,9 @@ namespace IFBusTicketSystem.Web
             container.RegisterType<IUserService, UserService>(new PerResolveLifetimeManager());
             container.RegisterType<ITicketService, TicketService>(new PerResolveLifetimeManager());
 
-        #endregion
+            container.RegisterType<IValidationService, ValidationService>(new PerResolveLifetimeManager());
+
+            #endregion
         }
     }
 }

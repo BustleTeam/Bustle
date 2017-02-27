@@ -5,6 +5,7 @@ using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
+using IFBusTicketSystem.BL.Validators;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -12,17 +13,18 @@ namespace IFBusTicketSystem.BL.Services
     {
         [Dependency]
         public IRouteRepository Routes { get; set; }
+        [Dependency]
+        public IValidationService ValidationService { get; set; }
 
         public void CreateRoute(RouteBaseQuery query)
         {
-            if (query.Route != null)
-            {
-                Routes.Create(query.Route);
-            }
+            ValidationService.Validate(query, new RouteBaseQueryValidator());
+            Routes.Create(query.Route);
         }
 
         public void DeleteRoute(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             var route = Routes.GetById(query.Id);
             if (route != null)
             {
@@ -37,18 +39,17 @@ namespace IFBusTicketSystem.BL.Services
 
         public Route GetRouteById(EntityBaseQuery query)
         {
+            ValidationService.Validate(query, new EntityBaseQueryValidator());
             return Routes.GetById(query.Id);
         }
 
         public void UpdateRoute(RouteBaseQuery query)
         {
-            if (query.Route != null)
+            ValidationService.Validate(query, new RouteBaseQueryValidator());
+            var route = Routes.GetById(query.Id);
+            if (route != null)
             {
-                var route = Routes.GetById(query.Id);
-                if (route != null)
-                {
-                    Routes.Update(query.Route);
-                }
+                Routes.Update(query.Route);
             }
         }
     }
