@@ -87,6 +87,12 @@
     <Compile Include="Interfaces\IStopRepository.cs" />
     <Compile Include="Interfaces\ITicketRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="MappingConfiguration\EntityMaps\RaceMap.cs" />
+    <Compile Include="MappingConfiguration\EntityMaps\RouteMap.cs" />
+    <Compile Include="MappingConfiguration\EntityMaps\SeatMap.cs" />
+    <Compile Include="MappingConfiguration\EntityMaps\StationMap.cs" />
+    <Compile Include="MappingConfiguration\EntityMaps\StopMap.cs" />
+    <Compile Include="MappingConfiguration\EntityMaps\TicketMap.cs" />
     <Compile Include="MappingConfiguration\FluentNhibernateConfiguration.cs" />
     <Compile Include="MappingConfiguration\StoreConfiguration.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
