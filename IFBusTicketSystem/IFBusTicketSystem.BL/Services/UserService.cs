@@ -29,7 +29,7 @@ namespace IFBusTicketSystem.BL.Services
             if (user != null)
             {
                 Users.Delete(query.Id);
-            }                             
+            }
         }
 
         public IEnumerable<User> GetAllUsers()
@@ -50,7 +50,7 @@ namespace IFBusTicketSystem.BL.Services
             if (user != null)
             {
                 Users.Update(query.User);
-            }             
+            }
         }
     }
 }

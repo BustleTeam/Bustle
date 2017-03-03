@@ -7,6 +7,9 @@ using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using IFBusTicketSystem.DAL.Interfaces;
+using Microsoft.AspNet.Identity;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -15,6 +18,22 @@ namespace IFBusTicketSystem.Web.Controllers
     {
         [Dependency]
         public IUserService UserService { get; set; }
+        [Dependency]
+        public IUserRepository UserRepository { get; set; }
+
+        [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(RegisterUserDTO userDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new User {UserName = userDto.UserName};
+            var result = await UserRepository.Register(user);
+            return Ok();
+        }
 
         public IHttpActionResult GetAll()
         {

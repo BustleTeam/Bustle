@@ -30,12 +30,12 @@ namespace IFBusTicketSystem.DAL.Repositories
             Session.Delete(Session.Load<T>(id));
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
             return UnitOfWork.Session.Query<T>();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return UnitOfWork.Session.Get<T>(id);
         }
