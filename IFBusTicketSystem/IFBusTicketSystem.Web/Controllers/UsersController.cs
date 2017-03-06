@@ -7,9 +7,6 @@ using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using IFBusTicketSystem.DAL.Interfaces;
-using Microsoft.AspNet.Identity;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -18,27 +15,11 @@ namespace IFBusTicketSystem.Web.Controllers
     {
         [Dependency]
         public IUserService UserService { get; set; }
-        [Dependency]
-        public IUserRepository UserRepository { get; set; }
-
-        [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterUserDTO userDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = new User {UserName = userDto.UserName};
-            var result = await UserRepository.Register(user);
-            return Ok();
-        }
 
         public IHttpActionResult GetAll()
         {
             var users = UserService.GetAllUsers();
-            return users != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users)) 
+            return users != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<UserInfo>, IEnumerable<UserDTO>>(users)) 
                 : (IHttpActionResult)NotFound();
         }
 
@@ -47,18 +28,19 @@ namespace IFBusTicketSystem.Web.Controllers
         {
             var query = new EntityBaseQuery(id);
             var user = UserService.GetUserById(query);
-            return user != null ? Ok(MappingProfile.Mapper.Map<User, UserDTO>(user)) 
+            return user != null ? Ok(MappingProfile.Mapper.Map<UserInfo, UserDTO>(user)) 
                 : (IHttpActionResult)NotFound();
         }
 
         [HttpPost]
+        [Route("")]
         public IHttpActionResult Create([FromBody]UserDTO user)
         {
             if (user == null)
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(MappingProfile.Mapper.Map<UserDTO, User>(user));
+            var query = new UserBaseQuery(MappingProfile.Mapper.Map<UserDTO, UserInfo>(user));
             UserService.CreateUser(query);
             return Ok();
         }
@@ -71,7 +53,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new UserBaseQuery(id, MappingProfile.Mapper.Map<UserDTO, User>(user));
+            var query = new UserBaseQuery(id, MappingProfile.Mapper.Map<UserDTO, UserInfo>(user));
             UserService.UpdateUser(query);
             return Ok();
         }

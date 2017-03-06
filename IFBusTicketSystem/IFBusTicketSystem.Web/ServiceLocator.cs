@@ -32,30 +32,30 @@ namespace IFBusTicketSystem.Web
             container.RegisterType<ISessionFactory>(new ContainerControlledLifetimeManager(),
                 new InjectionFactory(c => FluentNhibernateConfiguration.GetSessionFactory));
 
-            container.RegisterType<ISession>(new InjectionFactory(c => c.Resolve<ISessionFactory>().OpenSession()));
+            container.RegisterType<ISession>(new PerResolveLifetimeManager(), new InjectionFactory(c => c.Resolve<ISessionFactory>().OpenSession()));
 
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
 
         #region Repositories
 
-            container.RegisterType<IRaceRepository, RaceRepository>();
-            container.RegisterType<IStationRepository, StationRepository>();
-            container.RegisterType<IRouteRepository, RouteRepository>();
-            container.RegisterType<IStopRepository, StopRepository>();
-            container.RegisterType<IUserRepository, UserRepository>();
-            container.RegisterType<ITicketRepository, TicketRepository>();
-            container.RegisterType<ISeatRepository, SeatRepository>();
+            container.RegisterType<IRaceRepository, RaceRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IStationRepository, StationRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IRouteRepository, RouteRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IStopRepository, StopRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IUserRepository, UserRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<ITicketRepository, TicketRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<ISeatRepository, SeatRepository>(new PerResolveLifetimeManager());
 
         #endregion
 
         #region Services
 
-            container.RegisterType<IRaceService, RaceService>();
-            container.RegisterType<IRouteService, RouteService>();
-            container.RegisterType<IUserService, UserService>();
-            container.RegisterType<ITicketService, TicketService>();
+            container.RegisterType<IRaceService, RaceService>(new PerResolveLifetimeManager());
+            container.RegisterType<IRouteService, RouteService>(new PerResolveLifetimeManager());
+            container.RegisterType<IUserService, UserService>(new PerResolveLifetimeManager());
+            container.RegisterType<ITicketService, TicketService>(new PerResolveLifetimeManager());
 
-            container.RegisterType<IValidationService, ValidationService>();
+            container.RegisterType<IValidationService, ValidationService>(new PerResolveLifetimeManager());
 
             #endregion
         }

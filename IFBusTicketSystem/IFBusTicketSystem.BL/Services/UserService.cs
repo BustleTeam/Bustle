@@ -32,12 +32,12 @@ namespace IFBusTicketSystem.BL.Services
             }
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserInfo> GetAllUsers()
         {
             return Users.GetAll().ToList();
         }
 
-        public User GetUserById(EntityBaseQuery query)
+        public UserInfo GetUserById(EntityBaseQuery query)
         {
             ValidationService.Validate(query, new EntityBaseQueryValidator());
             return Users.GetById(query.Id);

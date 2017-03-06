@@ -10,10 +10,10 @@ namespace IFBusTicketSystem.DAL.Repositories
         where T : class 
     {
         [Dependency]
-        public UnitOfWork UnitOfWork { get; set; }
-
-        protected ISession Session
-        {
+        public IUnitOfWork UnitOfWork { get; set; }
+        
+        [Dependency]
+        protected ISession Session {
             get
             {
                 return UnitOfWork.Session;
@@ -32,17 +32,17 @@ namespace IFBusTicketSystem.DAL.Repositories
 
         public virtual IQueryable<T> GetAll()
         {
-            return UnitOfWork.Session.Query<T>();
+            return Session.Query<T>();
         }
 
         public virtual T GetById(int id)
         {
-            return UnitOfWork.Session.Get<T>(id);
+            return Session.Get<T>(id);
         }
 
         public void Update(T entity)
         {
-            UnitOfWork.Session.Update(entity);
+            Session.Update(entity);
         }
     }
 }

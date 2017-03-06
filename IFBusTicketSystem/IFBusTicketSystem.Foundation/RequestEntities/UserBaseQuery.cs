@@ -4,14 +4,14 @@ namespace IFBusTicketSystem.Foundation.RequestEntities
 {
     public class UserBaseQuery : EntityBaseQuery
     {
-        public User User { get; set; }
+        public UserInfo User { get; set; }
 
-        public UserBaseQuery(int id, User user) : base(id)
+        public UserBaseQuery(int id, UserInfo user) : base(id)
         {
             User = user;
         }
 
-        public UserBaseQuery(User user)
+        public UserBaseQuery(UserInfo user)
         {
             User = user;
         }

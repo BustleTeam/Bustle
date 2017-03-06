@@ -9,8 +9,8 @@ namespace IFBusTicketSystem.BL.Validators
         {
             RuleFor(query => query.Ticket).NotNull().WithMessage("Ticket is required");
             RuleFor(query => query.Ticket.Passenger).NotNull().WithMessage("Passenger is required");
-            RuleFor(query => query.Ticket.Passenger.FirstName).Length(1, 20).WithMessage("Invalid Name");
-            RuleFor(query => query.Ticket.Passenger.LastName).Length(1, 20).WithMessage("Invalid Surname");
+            //RuleFor(query => query.Ticket.Passenger.FirstName).Length(1, 20).WithMessage("Invalid Name");
+            //RuleFor(query => query.Ticket.Passenger.LastName).Length(1, 20).WithMessage("Invalid Surname");
             RuleFor(query => query.Ticket.Seat).NotNull().WithMessage("Seat is required");
             RuleFor(query => query.Ticket.Seat.Number).ExclusiveBetween(0, 200).WithMessage("Invalid Seat Number");
         }

@@ -7,8 +7,8 @@ namespace IFBusTicketSystem.BL.Interfaces
 {
     public interface IUserService
     {
-        User GetUserById(EntityBaseQuery query);
-        IEnumerable<User> GetAllUsers();
+        UserInfo GetUserById(EntityBaseQuery query);
+        IEnumerable<UserInfo> GetAllUsers();
         void CreateUser(UserBaseQuery query);
         void UpdateUser(UserBaseQuery query);
         void DeleteUser(EntityBaseQuery query);

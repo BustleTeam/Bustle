@@ -7,21 +7,21 @@ using NHibernate.AspNet.Identity;
 
 namespace IFBusTicketSystem.DAL.Repositories
 {
-    public class UserRepository : Repository<User>, IUserRepository, IDisposable
+    public class UserRepository : Repository<UserInfo>, IUserRepository, IDisposable
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<UserInfo> _userManager;
 
         public UserRepository()
         {
-            _userManager = new UserManager<User>(new UserStore<User>(Session));
+            _userManager = new UserManager<UserInfo>(new UserStore<UserInfo>(Session));
         }
 
-        public async Task<IdentityResult> Register(User user)
+        public async Task<IdentityResult> Register(UserInfo user, string password)
         {
-            return await _userManager.CreateAsync(user, string.Empty);
+            return await _userManager.CreateAsync(user, password);
         }
 
-        public async Task<User> FindUser(string userName, string password)
+        public async Task<UserInfo> FindUser(string userName, string password)
         {
             var user = await _userManager.FindAsync(userName, password);
 

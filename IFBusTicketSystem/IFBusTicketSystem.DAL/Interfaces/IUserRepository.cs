@@ -4,9 +4,9 @@ using Microsoft.AspNet.Identity;
 
 namespace IFBusTicketSystem.DAL.Interfaces
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<UserInfo>
     {
-        Task<IdentityResult> Register(User user);
-        Task<User> FindUser(string userName, string password);
+        //Task<IdentityResult> Register(UserInfo user, string password);
+        //Task<UserInfo> FindUser(string userName, string password);
     }
 }

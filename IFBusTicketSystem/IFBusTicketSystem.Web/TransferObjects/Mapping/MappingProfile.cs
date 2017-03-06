@@ -79,31 +79,31 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
 
             cfg.CreateMap<TicketDTO, Ticket>()
                         .ForMember(dto => dto.Passenger,
-                            map => map.UseValue(new User()))
+                            map => map.UseValue(new UserInfo()))
                         .ForMember(dto => dto.Seat,
                             map => map.UseValue(new Seat()));
 
             cfg.CreateMap<ShortTicket, ShortTicketDTO>().ReverseMap();
 
-            cfg.CreateMap<User, UserDTO>()
-                        .ForMember(dto => dto.AddressCountry,
-                            map => map.MapFrom(u => u.Address.Country))
-                        .ForMember(dto => dto.AddressCity,
-                            map => map.MapFrom(u => u.Address.City))
-                        .ForMember(dto => dto.AddressStreet,
-                            map => map.MapFrom(u => u.Address.Street))
-                        .ForMember(dto => dto.AddressBuilding,
-                            map => map.MapFrom(u => u.Address.Building));
+            //cfg.CreateMap<User, UserDTO>()
+            //            .ForMember(dto => dto.AddressCountry,
+            //                map => map.MapFrom(u => u.Address.Country))
+            //            .ForMember(dto => dto.AddressCity,
+            //                map => map.MapFrom(u => u.Address.City))
+            //            .ForMember(dto => dto.AddressStreet,
+            //                map => map.MapFrom(u => u.Address.Street))
+            //            .ForMember(dto => dto.AddressBuilding,
+            //                map => map.MapFrom(u => u.Address.Building));
 
-            cfg.CreateMap<UserDTO, User>()
-                        .ForMember(dto => dto.Address,
-                            map => map.MapFrom(u => new Address
-                            {
-                                Country = u.AddressCountry,
-                                City = u.AddressCity,
-                                Street = u.AddressStreet,
-                                Building = u.AddressBuilding
-                            }));
+            //cfg.CreateMap<UserDTO, User>()
+            //            .ForMember(dto => dto.Address,
+            //                map => map.MapFrom(u => new Address
+            //                {
+            //                    Country = u.AddressCountry,
+            //                    City = u.AddressCity,
+            //                    Street = u.AddressStreet,
+            //                    Building = u.AddressBuilding
+            //                }));
         });
     }
 }

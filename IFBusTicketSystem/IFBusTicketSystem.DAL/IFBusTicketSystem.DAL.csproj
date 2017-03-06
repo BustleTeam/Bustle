@@ -68,6 +68,9 @@
       <HintPath>..\packages\NHibernate.AspNet.Identity.2.2.1.0\lib\net45\NHibernate.AspNet.Identity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.5.0.0-beta06\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -94,6 +97,7 @@
     <Compile Include="MappingConfiguration\EntityMaps\StopMap.cs" />
     <Compile Include="MappingConfiguration\EntityMaps\TicketMap.cs" />
     <Compile Include="MappingConfiguration\FluentNhibernateConfiguration.cs" />
+    <Compile Include="MappingConfiguration\FluentNhibernateExtensions.cs" />
     <Compile Include="MappingConfiguration\StoreConfiguration.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
