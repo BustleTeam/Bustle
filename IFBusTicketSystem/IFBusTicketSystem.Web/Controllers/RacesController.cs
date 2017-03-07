@@ -7,6 +7,7 @@ using Microsoft.Practices.Unity;
 using System.Collections.Generic;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
+using System;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -29,6 +30,15 @@ namespace IFBusTicketSystem.Web.Controllers
             var query = new EntityBaseQuery(id);
             var race = RaceService.GetRaceById(query);
             return race != null ? Ok(MappingProfile.Mapper.Map<Race, RaceDTO>(race)) 
+                : (IHttpActionResult)NotFound();
+        }
+
+        [Route("races/byDate")]
+        public IHttpActionResult GetByDate([FromBody]DateTime date)
+        {
+            var query = new DateTimeQuery(date);
+            var races = RaceService.GetRacesByDate(query);
+            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races))
                 : (IHttpActionResult)NotFound();
         }
 

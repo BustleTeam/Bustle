@@ -43,6 +43,12 @@ namespace IFBusTicketSystem.BL.Services
             return Races.GetById(query.Id);
         }
 
+        public IEnumerable<Race> GetRacesByDate(DateTimeQuery query)
+        {
+            ValidationService.Validate(query, new DateTimeQueryValidator());
+            return Races.GetByDate(query.Date);
+        }
+
         public void UpdateRace(RaceBaseQuery query)
         {
             ValidationService.Validate(query, new RaceBaseQueryValidator());

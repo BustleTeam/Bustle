@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IFBusTicketSystem.Web.TransferObjects
@@ -8,6 +9,10 @@ namespace IFBusTicketSystem.Web.TransferObjects
         public int Id { get; set; }
         [Required]
         public RouteDTO Route { get; set; }
+        [Required]
+        public DateTime Arrival { get; set; }
+        [Required]
+        public DateTime Departure { get; set; }
         [Required]
         public IEnumerable<StopDTO> Stops { get; set; } = new List<StopDTO>();
         [Required]
