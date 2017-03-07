@@ -19,6 +19,10 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
             cfg.CreateMap<Race, RaceDTO>()
                 .ForMember(dto => dto.Route,
                     map => map.UseValue(new RouteDTO()))
+                .ForMember(dto => dto.Arrival,
+                    map => map.MapFrom(s => string.Format("{0:g}", s.Arrival)))
+                .ForMember(dto => dto.Departure,
+                    map => map.MapFrom(s => string.Format("{0:g}", s.Departure)))
                 .ForMember(dto => dto.Stops,
                     map => map.UseValue(new List<StopDTO>()))
                 .ForMember(dto => dto.Seats, 
@@ -60,6 +64,10 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
             cfg.CreateMap<Stop, StopDTO>()
                         .ForMember(dto => dto.Station,
                             map => map.UseValue(new StationDTO()))
+                        .ForMember(dto => dto.Arrival,
+                            map => map.MapFrom(s => string.Format("{0:g}", s.Arrival)))
+                        .ForMember(dto => dto.Departure,
+                            map => map.MapFrom(s => string.Format("{0:g}", s.Departure)))
                         .ForMember(dto => dto.Race,
                             map => map.UseValue(new RaceDTO()));
 

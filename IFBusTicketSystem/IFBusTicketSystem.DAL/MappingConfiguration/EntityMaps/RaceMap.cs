@@ -9,6 +9,8 @@ namespace IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps
         {
             Id(r => r.Id);
             References(r => r.Route).Not.Nullable();
+            Map(r => r.Arrival).Not.Nullable();
+            Map(r => r.Departure).Not.Nullable();
             HasMany(r => r.Seats).Cascade.All();
             HasMany(r => r.Stops).Inverse().Cascade.All();
         }

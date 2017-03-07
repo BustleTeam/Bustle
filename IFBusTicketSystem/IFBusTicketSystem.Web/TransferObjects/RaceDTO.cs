@@ -9,6 +9,10 @@ namespace IFBusTicketSystem.Web.TransferObjects
         [Required]
         public RouteDTO Route { get; set; }
         [Required]
+        public string Arrival { get; set; }
+        [Required]
+        public string Departure { get; set; }
+        [Required]
         public IEnumerable<StopDTO> Stops { get; set; } = new List<StopDTO>();
         [Required]
         public IEnumerable<SeatDTO> Seats { get; set; } = new List<SeatDTO>();

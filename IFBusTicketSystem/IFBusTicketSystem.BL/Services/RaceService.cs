@@ -6,6 +6,7 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.BL.Validators;
+using System;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -41,6 +42,12 @@ namespace IFBusTicketSystem.BL.Services
         {
             ValidationService.Validate(query, new EntityBaseQueryValidator());
             return Races.GetById(query.Id);
+        }
+
+        public IEnumerable<Race> GetRacesByDate(DateTimeQuery query)
+        {
+            ValidationService.Validate(query, new DateTimeQueryValidator());
+            return Races.GetByDate(query.Date);
         }
 
         public void UpdateRace(RaceBaseQuery query)
