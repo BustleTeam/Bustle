@@ -34,7 +34,7 @@ namespace IFBusTicketSystem.Web.Controllers
         }
 
         [Route("races/byDate")]
-        public IHttpActionResult GetByDate([FromBody]DateTime date)
+        public IHttpActionResult GetByDate(string date)
         {
             var query = new DateTimeQuery(date);
             var races = RaceService.GetRacesByDate(query);

@@ -6,9 +6,9 @@ namespace IFBusTicketSystem.Foundation.RequestEntities
     {
         public DateTime Date { get; set; }
 
-        public DateTimeQuery(DateTime date)
+        public DateTimeQuery(string date)
         {
-            Date = date; 
+            Date = DateTime.Parse(date); 
         }
     }
 }

@@ -6,6 +6,7 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.BL.Validators;
+using System;
 
 namespace IFBusTicketSystem.BL.Services
 {
