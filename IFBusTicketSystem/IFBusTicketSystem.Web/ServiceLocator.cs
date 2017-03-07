@@ -4,8 +4,11 @@ using IFBusTicketSystem.DAL;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.DAL.MappingConfiguration;
 using IFBusTicketSystem.DAL.Repositories;
+using IFBusTicketSystem.Foundation.Types.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.Practices.Unity;
 using NHibernate;
+using NHibernate.AspNet.Identity;
 
 namespace IFBusTicketSystem.Web
 {
@@ -42,7 +45,8 @@ namespace IFBusTicketSystem.Web
             container.RegisterType<IStationRepository, StationRepository>(new PerResolveLifetimeManager());
             container.RegisterType<IRouteRepository, RouteRepository>(new PerResolveLifetimeManager());
             container.RegisterType<IStopRepository, StopRepository>(new PerResolveLifetimeManager());
-            container.RegisterType<IUserRepository, UserRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IUserRepository, UserRepository>(new PerResolveLifetimeManager(),
+                new InjectionConstructor(new UserManager<UserInfo>(new UserStore<UserInfo>(container.Resolve<ISession>()))));
             container.RegisterType<ITicketRepository, TicketRepository>(new PerResolveLifetimeManager());
             container.RegisterType<ISeatRepository, SeatRepository>(new PerResolveLifetimeManager());
 

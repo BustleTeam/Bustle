@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
 using IFBusTicketSystem.Foundation.Types.Entities;
 
-namespace IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps5454
+namespace IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps
 {
     class StationMap : ClassMap<Station>
     {

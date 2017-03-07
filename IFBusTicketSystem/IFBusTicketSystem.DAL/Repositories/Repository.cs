@@ -11,8 +11,7 @@ namespace IFBusTicketSystem.DAL.Repositories
     {
         [Dependency]
         public IUnitOfWork UnitOfWork { get; set; }
-        
-        [Dependency]
+
         protected ISession Session {
             get
             {
@@ -37,7 +36,7 @@ namespace IFBusTicketSystem.DAL.Repositories
 
         public virtual T GetById(int id)
         {
-            return Session.Get<T>(id);
+            return Session.Get<T>(id.ToString());
         }
 
         public void Update(T entity)

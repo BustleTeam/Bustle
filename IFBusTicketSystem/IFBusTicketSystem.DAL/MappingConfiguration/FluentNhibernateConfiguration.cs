@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using System.Runtime.CompilerServices;
-using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps;
-using IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps5454;
 using IFBusTicketSystem.Foundation.Constants;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using NHibernate;
@@ -27,14 +24,12 @@ namespace IFBusTicketSystem.DAL.MappingConfiguration
                         .Database(
                             MsSqlConfiguration.MsSql2012.ConnectionString(
                                 ConfigurationManager.ConnectionStrings["BustleDB"].ConnectionString))
-                        //.Mappings(_ => _.AutoMappings.Add(AutoMap.AssemblyOf<Race>(new StoreConfiguration())))
                         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<StationMap>())
                         .ExposeConfiguration(_ =>
                         {
                             _.AddDeserializedMapping(
                                 MappingHelper.GetIdentityMappings(new[] { typeof(UserInfo) }),
                                 null);
-                            //new SchemaExport(_).Create(true,true);
                             new SchemaUpdate(_).Execute(false, true);
                         })
                         .BuildSessionFactory();

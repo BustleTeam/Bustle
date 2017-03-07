@@ -23,7 +23,7 @@ namespace IFBusTicketSystem.Web.Controllers
                 : (IHttpActionResult)NotFound();
         }
 
-        [Route("users/{id:int:min(1)}")]
+        //[Route("users/{id:int:min(1)}")]
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);
@@ -33,7 +33,6 @@ namespace IFBusTicketSystem.Web.Controllers
         }
 
         [HttpPost]
-        [Route("")]
         public IHttpActionResult Create([FromBody]UserDTO user)
         {
             if (user == null)
