@@ -7,7 +7,8 @@ using NHibernate.AspNet.Identity;
 
 namespace IFBusTicketSystem.DAL.Repositories
 {
-    public class UserRepository : Repository<UserInfo>, IUserRepository, IDisposable
+    public class UserRepository : Repository<UserInfo>, IUserRepository
+        //, IDisposable
     {
         //private readonly UserManager<UserInfo> _userManager;
 
