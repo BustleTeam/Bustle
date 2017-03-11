@@ -1,6 +1,4 @@
-﻿using IFBusTicketSystem.Foundation.Types.Entities;
-
-namespace IFBusTicketSystem.Web.TransferObjects
+﻿namespace IFBusTicketSystem.Foundation.Types.ShortEntities
 {
     public class ShortRoute
     {

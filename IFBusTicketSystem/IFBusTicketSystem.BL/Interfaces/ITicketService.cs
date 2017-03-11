@@ -12,6 +12,6 @@ namespace IFBusTicketSystem.BL.Interfaces
         void CreateTicket(TicketBaseQuery query);
         void UpdateTicket(TicketBaseQuery query);
         void DeleteTicket(EntityBaseQuery query);
-        Guid BookTicket(BookTicketQuery query);
+        Guid BookTicket(BookTicketCommand query);
     }
 }

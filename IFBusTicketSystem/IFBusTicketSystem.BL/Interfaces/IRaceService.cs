@@ -7,7 +7,8 @@ namespace IFBusTicketSystem.BL.Interfaces
     public interface IRaceService
     {
         Race GetRaceById(EntityBaseQuery query);
-        IEnumerable<Race> GetRacesByDate(DateTimeQuery query);
+        IEnumerable<Race> GetRacesByDate(GetRacesByDateQuery query);
+        IEnumerable<Race> GetRacesByDestination(GetRacesByDestinationQuery query);
         IEnumerable<Race> GetAllRaces();
         void CreateRace(RaceBaseQuery query);
         void UpdateRace(RaceBaseQuery query);

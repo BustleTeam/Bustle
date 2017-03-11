@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Linq;
 using System.Linq.Expressions;
 using System;
+using System.Collections.Generic;
 
 namespace IFBusTicketSystem.DAL.Repositories
 {
@@ -34,6 +35,13 @@ namespace IFBusTicketSystem.DAL.Repositories
         public virtual IQueryable<T> GetAll()
         {
             return Session.Query<T>();
+        }
+
+        public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
+        {
+            return Session.QueryOver<T>()
+                .Where(predicate)
+                .List();
         }
 
         public virtual T GetById(int id)

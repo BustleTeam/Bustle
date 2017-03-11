@@ -4,9 +4,9 @@ using System;
 
 namespace IFBusTicketSystem.BL.Validators
 {
-    class DateTimeQueryValidator : AbstractValidator<DateTimeQuery>
+    class GetRacesByDateQueryValidator : AbstractValidator<GetRacesByDateQuery>
     {
-        public DateTimeQueryValidator()
+        public GetRacesByDateQueryValidator()
         {
             RuleFor(query => query.Date).GreaterThanOrEqualTo(DateTime.Now).WithMessage("Date is invalid");
         }

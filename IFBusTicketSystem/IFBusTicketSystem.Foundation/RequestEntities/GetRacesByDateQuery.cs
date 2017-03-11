@@ -2,11 +2,11 @@
 
 namespace IFBusTicketSystem.Foundation.RequestEntities
 {
-    public class DateTimeQuery : EntityBaseQuery
+    public class GetRacesByDateQuery
     {
         public DateTime Date { get; set; }
 
-        public DateTimeQuery(string date)
+        public GetRacesByDateQuery(string date)
         {
             Date = DateTime.Parse(date); 
         }

@@ -15,6 +15,8 @@ namespace IFBusTicketSystem.BL.Services
         [Dependency]
         public IRaceRepository Races { get; set; }
         [Dependency]
+        public IStopRepository Stops { get; set; }
+        [Dependency]
         public IValidationService ValidationService { get; set; }
 
         public void CreateRace(RaceBaseQuery query)
@@ -44,10 +46,17 @@ namespace IFBusTicketSystem.BL.Services
             return Races.GetById(query.Id);
         }
 
-        public IEnumerable<Race> GetRacesByDate(DateTimeQuery query)
+        public IEnumerable<Race> GetRacesByDate(GetRacesByDateQuery query)
         {
-            ValidationService.Validate(query, new DateTimeQueryValidator());
-            return Races.GetByDate(query.Date);
+            ValidationService.Validate(query, new GetRacesByDateQueryValidator());
+            return Races.FindBy(r => r.Departure.Date == query.Date.Date && r.Departure >= query.Date);
+        }
+
+        public IEnumerable<Race> GetRacesByDestination(GetRacesByDestinationQuery query)
+        {
+            ValidationService.Validate(query, new GetRacesByDestinationQueryValidator());
+            IEnumerable<Stop> stops = Stops.FindBy(s => s.Station.Name == query.Destination);
+            return stops.Select(s => s.Race).AsEnumerable();
         }
 
         public void UpdateRace(RaceBaseQuery query)

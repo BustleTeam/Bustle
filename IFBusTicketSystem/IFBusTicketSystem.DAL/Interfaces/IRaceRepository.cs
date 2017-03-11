@@ -7,6 +7,5 @@ namespace IFBusTicketSystem.DAL.Interfaces
 {
     public interface IRaceRepository : IRepository<Race>
     {
-        IEnumerable<Race> GetByDate(DateTime date);
     }
 }

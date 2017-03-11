@@ -4,9 +4,9 @@ using System;
 
 namespace IFBusTicketSystem.BL.Validators
 {
-    class BookTicketQueryValidator : AbstractValidator<BookTicketQuery>
+    class BookTicketCommandValidator : AbstractValidator<BookTicketCommand>
     {
-        public BookTicketQueryValidator()
+        public BookTicketCommandValidator()
         {
             RuleFor(query => query.ShortTicket).NotNull().WithMessage("Ticket is required");
             RuleFor(query => query.ShortTicket.PassengerEmail).NotEmpty().WithMessage("Passenger name is required");

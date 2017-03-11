@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IFBusTicketSystem.Foundation.Types.Entities;
+using IFBusTicketSystem.Foundation.Types.ShortEntities;
 using System.Collections.Generic;
 
 namespace IFBusTicketSystem.Web.TransferObjects.Mapping

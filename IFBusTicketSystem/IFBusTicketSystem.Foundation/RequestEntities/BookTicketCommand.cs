@@ -1,12 +1,12 @@
-﻿using IFBusTicketSystem.Web.TransferObjects;
+﻿using IFBusTicketSystem.Foundation.Types.ShortEntities;
 
 namespace IFBusTicketSystem.Foundation.RequestEntities
 {
-    public class BookTicketQuery : EntityBaseQuery
+    public class BookTicketCommand
     {
         public ShortTicket ShortTicket { get; set; }
 
-        public BookTicketQuery(ShortTicket shortTicket)
+        public BookTicketCommand(ShortTicket shortTicket)
         {
             ShortTicket = shortTicket;
         }

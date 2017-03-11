@@ -36,8 +36,17 @@ namespace IFBusTicketSystem.Web.Controllers
         [Route("races/byDate")]
         public IHttpActionResult GetByDate([FromBody]string date)
         {
-            var query = new DateTimeQuery(date);
+            var query = new GetRacesByDateQuery(date);
             var races = RaceService.GetRacesByDate(query);
+            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races))
+                : (IHttpActionResult)NotFound();
+        }
+
+        [Route("races/byDestination")]
+        public IHttpActionResult GetByDestination([FromBody]string destination)
+        {
+            var query = new GetRacesByDestinationQuery(destination);
+            var races = RaceService.GetRacesByDestination(query);
             return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races))
                 : (IHttpActionResult)NotFound();
         }

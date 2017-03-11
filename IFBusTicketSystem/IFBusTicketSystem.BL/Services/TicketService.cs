@@ -28,9 +28,9 @@ namespace IFBusTicketSystem.BL.Services
             Tickets.Create(query.Ticket);
         }
 
-        public Guid BookTicket(BookTicketQuery query)
+        public Guid BookTicket(BookTicketCommand query)
         {
-            ValidationService.Validate(query, new BookTicketQueryValidator());
+            ValidationService.Validate(query, new BookTicketCommandValidator());
             Seat seat = Seats.GetById(query.ShortTicket.SeatId);
             seat.IsAvailable = false;
             Ticket ticket = new Ticket()

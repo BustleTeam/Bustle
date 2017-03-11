@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 using System;
+using IFBusTicketSystem.Foundation.Types.ShortEntities;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -53,7 +54,7 @@ namespace IFBusTicketSystem.Web.Controllers
             {
                 return BadRequest();
             }
-            var query = new BookTicketQuery(MappingProfile.Mapper.Map<ShortTicketDTO, ShortTicket>(ticket));
+            var query = new BookTicketCommand(MappingProfile.Mapper.Map<ShortTicketDTO, ShortTicket>(ticket));
             Guid code = TicketService.BookTicket(query);
             return Ok(code);
         }
