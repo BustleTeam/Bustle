@@ -89,6 +89,7 @@
     <Compile Include="Services\TicketService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ValidationService.cs" />
+    <Compile Include="Validators\BookTicketQueryValidator.cs" />
     <Compile Include="Validators\DateTimeQueryValidator.cs" />
     <Compile Include="Validators\EntityBaseQueryValidator.cs" />
     <Compile Include="Validators\RaceBaseQueryValidator.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace IFBusTicketSystem.DAL.Interfaces
 {
@@ -6,6 +8,7 @@ namespace IFBusTicketSystem.DAL.Interfaces
     {
         IQueryable<T> GetAll();
         T GetById(int id);
+        T GetSingle(Expression<Func<T, bool>> predicate);
         void Create(T entity);
         void Update(T entity);
         void Delete(int id);

@@ -7,6 +7,7 @@ using Microsoft.Practices.Unity;
 using System.Collections.Generic;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
+using System;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -42,6 +43,19 @@ namespace IFBusTicketSystem.Web.Controllers
             var query = new TicketBaseQuery(MappingProfile.Mapper.Map<TicketDTO, Ticket>(ticket));
             TicketService.CreateTicket(query);
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("tickets/book")]
+        public IHttpActionResult BookTicket([FromBody]ShortTicketDTO ticket)
+        {
+            if (ticket == null)
+            {
+                return BadRequest();
+            }
+            var query = new BookTicketQuery(MappingProfile.Mapper.Map<ShortTicketDTO, ShortTicket>(ticket));
+            Guid code = TicketService.BookTicket(query);
+            return Ok(code);
         }
 
         [HttpPut]

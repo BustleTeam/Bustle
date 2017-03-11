@@ -3,6 +3,8 @@ using IFBusTicketSystem.DAL.Interfaces;
 using Microsoft.Practices.Unity;
 using NHibernate;
 using NHibernate.Linq;
+using System.Linq.Expressions;
+using System;
 
 namespace IFBusTicketSystem.DAL.Repositories
 {
@@ -37,6 +39,13 @@ namespace IFBusTicketSystem.DAL.Repositories
         public virtual T GetById(int id)
         {
             return Session.Get<T>(id.ToString());
+        }
+
+        public T GetSingle(Expression<Func<T, bool>> predicate)
+        {
+            return Session.QueryOver<T>()
+                .Where(predicate)
+                .SingleOrDefault();
         }
 
         public void Update(T entity)

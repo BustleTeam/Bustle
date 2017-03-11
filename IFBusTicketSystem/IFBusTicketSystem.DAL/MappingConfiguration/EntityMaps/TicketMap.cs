@@ -8,6 +8,7 @@ namespace IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps
         public TicketMap()
         {
             Id(t => t.Id);
+            Map(t => t.Code);
             References(t => t.Passenger).Not.Nullable();
             References(t => t.Seat).Not.Nullable();
         }

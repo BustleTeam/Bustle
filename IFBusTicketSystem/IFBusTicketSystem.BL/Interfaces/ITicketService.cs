@@ -1,6 +1,7 @@
 ﻿using IFBusTicketSystem.Foundation.RequestEntities;
 using System.Collections.Generic;
 using IFBusTicketSystem.Foundation.Types.Entities;
+using System;
 
 namespace IFBusTicketSystem.BL.Interfaces
 {
@@ -11,5 +12,6 @@ namespace IFBusTicketSystem.BL.Interfaces
         void CreateTicket(TicketBaseQuery query);
         void UpdateTicket(TicketBaseQuery query);
         void DeleteTicket(EntityBaseQuery query);
+        Guid BookTicket(BookTicketQuery query);
     }
 }
