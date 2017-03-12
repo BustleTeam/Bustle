@@ -6,6 +6,7 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.BL.Validators;
+using IFBusTicketSystem.Foundation.Types;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -51,6 +52,17 @@ namespace IFBusTicketSystem.BL.Services
             {
                 Users.Update(query.User);
             }
+        }
+
+        public UserDataWithOrders GetUserData(GetUserDataQuery query)
+        {
+            ValidationService.Validate(query, new GetUserDataQueryValidator());
+
+            var userData = Users.GetUserDataWithOrders(query.UserId);
+
+            ValidationService.Validate(userData, new UserDataWithOrdersValidator());
+
+            return userData;
         }
     }
 }

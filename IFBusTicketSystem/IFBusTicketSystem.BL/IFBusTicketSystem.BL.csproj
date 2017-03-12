@@ -92,6 +92,7 @@
     <Compile Include="Validators\BookTicketCommandValidator.cs" />
     <Compile Include="Validators\GetRacesByDateQueryValidator.cs" />
     <Compile Include="Validators\EntityBaseQueryValidator.cs" />
+    <Compile Include="Validators\GetUserDataQueryValidator.cs" />
     <Compile Include="Validators\RaceBaseQueryValidator.cs" />
     <Compile Include="Validators\GetRacesByDestinationQueryValidator.cs" />
     <Compile Include="Validators\RouteBaseQueryValidator.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Validators\StopsValidator.cs" />
     <Compile Include="Validators\TicketBaseQueryValidator.cs" />
     <Compile Include="Validators\UserBaseQueryValidator.cs" />
+    <Compile Include="Validators\UserDataWithOrdersValidator.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using IFBusTicketSystem.BL.Interfaces;
+﻿using System;
+using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
@@ -7,6 +8,9 @@ using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 using System.Collections.Generic;
+using IFBusTicketSystem.Foundation.Types;
+using Microsoft.AspNet.Identity;
+using NLog.Web.LayoutRenderers;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -21,6 +25,19 @@ namespace IFBusTicketSystem.Web.Controllers
             var users = UserService.GetAllUsers();
             return users != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<UserInfo>, IEnumerable<UserDTO>>(users)) 
                 : (IHttpActionResult)NotFound();
+        }
+
+        //[Authorize] Note: Uncomment later after login implementation
+        [Route("users/userdata")]
+        public IHttpActionResult GetUserInfo()
+        {
+            //var userId = User.Identity.GetUserId(); Note: Uncomment later after login implementation
+            var userId = new Guid().ToString(); // temporary
+
+            var userData = UserService.GetUserData(new GetUserDataQuery{ UserId = userId });
+
+            return Ok(MappingProfile.Mapper.Map<UserDataWithOrders, UserDataDTO>(userData));
+
         }
 
         //[Route("users/{id:int:min(1)}")]

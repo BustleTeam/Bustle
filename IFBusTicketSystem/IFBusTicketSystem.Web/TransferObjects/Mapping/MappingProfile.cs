@@ -2,6 +2,7 @@
 using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Foundation.Types.ShortEntities;
 using System.Collections.Generic;
+using IFBusTicketSystem.Foundation.Types;
 
 namespace IFBusTicketSystem.Web.TransferObjects.Mapping
 {
@@ -93,6 +94,17 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
                             map => map.UseValue(new Seat()));
 
             cfg.CreateMap<ShortTicket, ShortTicketDTO>().ReverseMap();
+
+            cfg.CreateMap<UserDataWithOrders, UserDataDTO>()
+                .ForMember(dto => dto.Tickets, map => map.UseValue(new TicketInfoDTO()));
+
+            cfg.CreateMap<Ticket, TicketInfoDTO>()
+                .ForMember(dto => dto.TicketId, map => map.MapFrom(t => t.Id))
+                .ForMember(dto => dto.PassengerName,
+                    map => map.MapFrom(t => $"{t.Passenger.LastName} {t.Passenger.FirstName}"))
+                .ForMember(dto => dto.RaceName, map => map.MapFrom(t => t.Seat.Race.Route.Name))
+                .ForMember(dto => dto.SeatNumber, map => map.MapFrom(t => t.Seat.Number));
+
 
             //cfg.CreateMap<User, UserDTO>()
             //            .ForMember(dto => dto.AddressCountry,

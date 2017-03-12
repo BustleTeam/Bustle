@@ -75,6 +75,7 @@
     <Compile Include="RequestEntities\BookTicketCommand.cs" />
     <Compile Include="RequestEntities\GetRacesByDateQuery.cs" />
     <Compile Include="RequestEntities\EntityBaseQuery.cs" />
+    <Compile Include="RequestEntities\GetUserDataQuery.cs" />
     <Compile Include="RequestEntities\RaceBaseQuery.cs" />
     <Compile Include="RequestEntities\GetRacesByDestinationQuery.cs" />
     <Compile Include="RequestEntities\RouteBaseQuery.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Types\ShortEntities\ShortStation.cs" />
     <Compile Include="Types\ShortEntities\ShortStop.cs" />
     <Compile Include="Types\ShortEntities\ShortTicket.cs" />
+    <Compile Include="Types\UserDataWithOrders.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

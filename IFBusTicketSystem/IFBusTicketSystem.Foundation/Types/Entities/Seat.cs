@@ -7,5 +7,6 @@ namespace IFBusTicketSystem.Foundation.Types.Entities
         public virtual int Id { get; set; }
         public virtual int Number { get; set; }
         public virtual bool IsAvailable { get; set; }
+        public virtual Race Race { get; set; }
     }
 }

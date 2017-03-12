@@ -203,6 +203,8 @@
     <Compile Include="TransferObjects\StopDTO.cs" />
     <Compile Include="TransferObjects\ShortTicketDTO.cs" />
     <Compile Include="TransferObjects\TicketDTO.cs" />
+    <Compile Include="TransferObjects\TicketInfoDTO.cs" />
+    <Compile Include="TransferObjects\UserDataDTO.cs" />
     <Compile Include="TransferObjects\UserDTO.cs" />
     <Compile Include="UnityResolver.cs" />
   </ItemGroup>
