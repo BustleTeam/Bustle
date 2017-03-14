@@ -40,6 +40,20 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
             
             cfg.CreateMap<ShortRace, ShortRaceDTO>().ReverseMap();
 
+            cfg.CreateMap<Race, ShortRaceDTO>()
+                .ForMember(dto => dto.RouteName,
+                    map => map.MapFrom(r => r.Route.Name))
+                .ForMember(dto => dto.RouteDescription,
+                    map => map.MapFrom(r => r.Route.Description))
+                .ForMember(dto => dto.Arrival,
+                    map => map.MapFrom(s => string.Format("{0:g}", s.Arrival)))
+                .ForMember(dto => dto.Departure,
+                    map => map.MapFrom(s => string.Format("{0:g}", s.Departure)))
+                .ForMember(dto => dto.Stops,
+                    map => map.UseValue(new List<ShortStopDTO>()))
+                .ForMember(dto => dto.Seats,
+                    map => map.UseValue(new List<SeatDTO>()));
+
             cfg.CreateMap<Route, RouteDTO>()
                         .ForMember(dto => dto.Stations,
                             map => map.UseValue(new List<StationDTO>()));
@@ -80,6 +94,13 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
                             map => map.UseValue(new Race()));
 
             cfg.CreateMap<ShortStop, ShortStopDTO>().ReverseMap();
+
+            cfg.CreateMap<Stop, ShortStopDTO>()
+                .ForMember(dto => dto.StationName, map => map.MapFrom(s => s.Station.Name))
+                .ForMember(dto => dto.Arrival,
+                            map => map.MapFrom(s => string.Format("{0:g}", s.Arrival)))
+                .ForMember(dto => dto.Departure,
+                            map => map.MapFrom(s => string.Format("{0:g}", s.Departure)));
 
             cfg.CreateMap<Ticket, TicketDTO>()
                         .ForMember(dto => dto.Passenger,

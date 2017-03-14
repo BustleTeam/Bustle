@@ -20,7 +20,7 @@ namespace IFBusTicketSystem.Web.Controllers
         public IHttpActionResult GetAll()
         {
             var races = RaceService.GetAllRaces();
-            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races)) 
+            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<ShortRaceDTO>>(races)) 
                 : (IHttpActionResult)NotFound();
         }
 
@@ -38,7 +38,7 @@ namespace IFBusTicketSystem.Web.Controllers
         {
             var query = new GetRacesByDateQuery(date);
             var races = RaceService.GetRacesByDate(query);
-            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races))
+            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<ShortRaceDTO>>(races))
                 : (IHttpActionResult)NotFound();
         }
 
@@ -47,7 +47,7 @@ namespace IFBusTicketSystem.Web.Controllers
         {
             var query = new GetRacesByDestinationQuery(destination);
             var races = RaceService.GetRacesByDestination(query);
-            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<RaceDTO>>(races))
+            return races != null ? Ok(MappingProfile.Mapper.Map<IEnumerable<Race>, IEnumerable<ShortRaceDTO>>(races))
                 : (IHttpActionResult)NotFound();
         }
 
