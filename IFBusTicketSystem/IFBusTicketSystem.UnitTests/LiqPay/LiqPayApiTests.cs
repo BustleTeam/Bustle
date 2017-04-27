@@ -58,7 +58,8 @@ namespace IFBusTicketSystem.UnitTests.LiqPay
         public void CnbParameters_Succeed()
         {
             var parameters = DefaultTestParameters();
-            _liqPay.CheckCnbParameters(parameters);
+
+            parameters.CheckCnbParameters();
 
             Assert.Equal(parameters["language"], "en");
             Assert.Equal(parameters["currency"], "USD");
@@ -74,7 +75,7 @@ namespace IFBusTicketSystem.UnitTests.LiqPay
         {
             var parameters = DefaultTestParameters("amount");
 
-            Assert.Throws<NullReferenceException>(() => _liqPay.CheckCnbParameters(parameters));
+            Assert.Throws<NullReferenceException>(() => parameters.CheckCnbParameters());
         }
 
         [Fact]
@@ -92,7 +93,7 @@ namespace IFBusTicketSystem.UnitTests.LiqPay
         [Fact]
         public void StringToSign_Succeed()
         {
-            Assert.Equal("i0XkvRxqy4i+v2QH0WIF9WfmKj4=", _liqPay.StringToSign("some string"));
+            Assert.Equal("i0XkvRxqy4i+v2QH0WIF9WfmKj4=", ("some string").ToSign());
         }
 
         [Fact]
@@ -105,7 +106,7 @@ namespace IFBusTicketSystem.UnitTests.LiqPay
 
             var encodedData = Convert.ToBase64String(Encoding.ASCII.GetBytes(obj.ToString()));
 
-            Assert.Equal("BCgDax9Rl0aG7CGqjxGDE/mtqxQ=", _liqPay.CreateSignature(encodedData));
+            Assert.Equal("BCgDax9Rl0aG7CGqjxGDE/mtqxQ=", LiqPayUtility.CreateSignature(encodedData, "privateKey"));
         }
 
         [Fact]
@@ -120,7 +121,7 @@ namespace IFBusTicketSystem.UnitTests.LiqPay
                 {"goods", "[{amount: 100, count: 2, unit: 'un.', name: 'phone'}]"}
             };
 
-            var generatedData = _liqPay.GenerateData(invoiceParams);
+            var generatedData = LiqPayUtility.GenerateData(invoiceParams, "publicKey", "privateKey");
 
             Assert.Equal("DqcGjvo2aXgt0+zBZECdH4cbPWY=", generatedData["signature"]);
             Assert.Equal(

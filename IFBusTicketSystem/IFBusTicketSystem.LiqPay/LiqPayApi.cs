@@ -40,7 +40,7 @@ namespace IFBusTicketSystem.LiqPay
 
         public Dictionary<string, object> Api(string path, IDictionary<string, string> parameters)
         {
-            var data = GenerateData(parameters);
+            var data = LiqPayUtility.GenerateData(parameters, _publicKey, _privateKey);
 
             var response = LiqPayRequest.Post(string.Concat(LiqPayConstants.LiqpayApiUrl, path), data, ProxyLogin, ProxyPassword, Proxy);
 
@@ -49,65 +49,18 @@ namespace IFBusTicketSystem.LiqPay
 
         public string CnbForm(IDictionary<string, string> parameters)
         {
-            CheckCnbParameters(parameters);
+            parameters.CheckCnbParameters();
 
             var jsonData = JsonConvert.SerializeObject(parameters.WithBasicApiParameters(_publicKey).WithSandboxParameter(IsCnbSandbox));
             var data = Convert.ToBase64String(Encoding.ASCII.GetBytes(jsonData));
 
-            var language = parameters["language"] ?? LiqPayConstants.DefaultLang;
-            var signature = CreateSignature(data);
+            string language;
+            if (!parameters.TryGetValue("language", out language))
+                language = LiqPayConstants.DefaultLang;
+                
+            var signature = LiqPayUtility.CreateSignature(data, _privateKey);
 
             return RenderHtmlForm(data, language, signature);
-        }
-
-        public IDictionary<string, string> GenerateData(IDictionary<string, string> parameters)
-        {
-
-            var jsonData = JsonConvert.SerializeObject(parameters.WithBasicApiParameters(_publicKey));
-            var data = Convert.ToBase64String(Encoding.ASCII.GetBytes(jsonData));
-
-            return new Dictionary<string, string>
-            {
-                {"data", data},
-                {"signature", CreateSignature(data)}
-            };
-        }
-
-        public void CheckCnbParameters(IDictionary<string, string> parameters)
-        {
-            if (!parameters.ContainsKey("amount"))
-                throw new NullReferenceException("amount can not be null");
-            else
-            {
-                if (parameters["amount"] == null)
-                    throw new NullReferenceException("amount can not be null");
-            }
-
-            if (!parameters.ContainsKey("currency"))
-                throw new NullReferenceException("currency can not be null");
-            else
-            {
-                if (parameters["currency"] == null)
-                    throw new NullReferenceException("currency can not be null");
-            }
-
-            if (!parameters.ContainsKey("description"))
-                throw new NullReferenceException("description can not be null");
-            else
-            {
-                if (parameters["description"] == null)
-                    throw new NullReferenceException("description can not be null");
-            }
-        }
-
-        public string CreateSignature(string base64EncodedData)
-        {
-            return StringToSign(_privateKey + base64EncodedData + _privateKey);
-        }
-
-        public string StringToSign(string str)
-        {
-            return Convert.ToBase64String(str.Sha1());
         }
 
         private string RenderHtmlForm(string data, string language, string signature)

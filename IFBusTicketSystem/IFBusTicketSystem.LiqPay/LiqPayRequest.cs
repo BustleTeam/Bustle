@@ -35,20 +35,16 @@ namespace IFBusTicketSystem.LiqPay
                 stream.Write(urlParameters, 0, urlParameters.Length);
             }
 
-            string responseContent = null;
-
             using (var response = request.GetResponse())
             {
                 using (var stream = response.GetResponseStream())
                 {
                     using (var streamReader = new StreamReader(stream))
                     {
-                        responseContent = streamReader.ReadToEnd();
+                        return streamReader.ReadToEnd();
                     }
                 }
             }
-
-            return responseContent;
         }
     }
 }
