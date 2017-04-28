@@ -8,9 +8,9 @@ using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using IFBusTicketSystem.Foundation.Types;
 using Microsoft.AspNet.Identity;
-using NLog.Web.LayoutRenderers;
 
 namespace IFBusTicketSystem.Web.Controllers
 {
@@ -19,6 +19,18 @@ namespace IFBusTicketSystem.Web.Controllers
     {
         [Dependency]
         public IUserService UserService { get; set; }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("api/users/register")]
+        public async Task<IHttpActionResult> Register([FromBody] RegisterUserDTO registerUserDto)
+        {
+          var command = MappingProfile.Mapper.Map<RegisterUserDTO, RegisterUserCommand>(registerUserDto);
+
+          await UserService.RegisterUserAsync(command);
+
+          return Ok();
+        }
 
         public IHttpActionResult GetAll()
         {

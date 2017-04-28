@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Practices.Unity;
 using NHibernate;
 using NHibernate.AspNet.Identity;
+using NLog;
 
 namespace IFBusTicketSystem.Web
 {

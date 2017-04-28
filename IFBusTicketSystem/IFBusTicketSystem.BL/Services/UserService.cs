@@ -1,12 +1,16 @@
-﻿using IFBusTicketSystem.BL.Interfaces;
+﻿using System;
+using IFBusTicketSystem.BL.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.BL.Validators;
+using IFBusTicketSystem.Foundation.Constants;
 using IFBusTicketSystem.Foundation.Types;
+using NLog;
 
 namespace IFBusTicketSystem.BL.Services
 {
@@ -16,6 +20,37 @@ namespace IFBusTicketSystem.BL.Services
         public IUserRepository Users { get; set; }
         [Dependency]
         public IValidationService ValidationService { get; set; }
+
+        public async Task<bool> RegisterUserAsync(RegisterUserCommand command)
+        {
+            ValidationService.Validate(command, new RegisterUserCommandValidator()); 
+            
+            var user = new UserInfo
+            {
+                UserName = command.Login,
+                FirstName = command.FirstName,
+                LastName = command.LastName,
+                Email = command.Email,
+                Sex = command.Sex
+            };
+            
+            var userCreated = Users.Register(user, command.Password);
+            
+            var logger =  LogManager.GetLogger(LogHelper.LoggerName);
+
+            var result = await userCreated;
+
+            if (!result.Succeeded)
+            {
+                logger.Error(result.Errors);
+
+                throw new ApplicationException("Error happened during registration. Try one more time.");
+            }
+
+            logger.Info($"User {command.Login} has just registered");
+
+            return true;
+        }
 
         public void CreateUser(UserBaseQuery query)
         {

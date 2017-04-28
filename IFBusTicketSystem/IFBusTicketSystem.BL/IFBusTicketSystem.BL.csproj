@@ -68,8 +68,17 @@
       <HintPath>..\packages\NHibernate.AspNet.Identity.2.2.1.0\lib\net45\NHibernate.AspNet.Identity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.5.0.0-beta06\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -95,6 +104,7 @@
     <Compile Include="Validators\GetUserDataQueryValidator.cs" />
     <Compile Include="Validators\RaceBaseQueryValidator.cs" />
     <Compile Include="Validators\GetRacesByDestinationQueryValidator.cs" />
+    <Compile Include="Validators\RegisterUserCommandValidator.cs" />
     <Compile Include="Validators\RouteBaseQueryValidator.cs" />
     <Compile Include="Validators\SeatsValidator.cs" />
     <Compile Include="Validators\StationsValidator.cs" />

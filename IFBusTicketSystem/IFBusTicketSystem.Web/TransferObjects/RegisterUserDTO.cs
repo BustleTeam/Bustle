@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using IFBusTicketSystem.Foundation.Types.Entities;
 
 namespace IFBusTicketSystem.Web.TransferObjects
 {
@@ -15,5 +16,12 @@ namespace IFBusTicketSystem.Web.TransferObjects
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        [EnumDataType(typeof(Sex))]
+        public Sex Sex { get; set; }
     }
 }

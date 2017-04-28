@@ -78,6 +78,7 @@
     <Compile Include="RequestEntities\GetUserDataQuery.cs" />
     <Compile Include="RequestEntities\RaceBaseQuery.cs" />
     <Compile Include="RequestEntities\GetRacesByDestinationQuery.cs" />
+    <Compile Include="RequestEntities\RegisterUserCommand.cs" />
     <Compile Include="RequestEntities\RouteBaseQuery.cs" />
     <Compile Include="RequestEntities\TicketBaseQuery.cs" />
     <Compile Include="RequestEntities\UserBaseQuery.cs" />
