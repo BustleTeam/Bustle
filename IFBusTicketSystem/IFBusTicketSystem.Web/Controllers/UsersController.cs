@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 namespace IFBusTicketSystem.Web.Controllers
 {
     [CheckException]
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
         [Dependency]
@@ -22,7 +23,7 @@ namespace IFBusTicketSystem.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("api/users/register")]
+        [Route("register")]
         public async Task<IHttpActionResult> Register([FromBody] RegisterUserDTO registerUserDto)
         {
           var command = MappingProfile.Mapper.Map<RegisterUserDTO, RegisterUserCommand>(registerUserDto);
@@ -39,12 +40,13 @@ namespace IFBusTicketSystem.Web.Controllers
                 : (IHttpActionResult)NotFound();
         }
 
-        //[Authorize] Note: Uncomment later after login implementation
-        [Route("users/userdata")]
+        [Authorize]
+        [HttpGet]
+        [Route("userdata")]
         public IHttpActionResult GetUserInfo()
         {
-            //var userId = User.Identity.GetUserId(); Note: Uncomment later after login implementation
-            var userId = new Guid().ToString(); // temporary
+            var userId = User.Identity.GetUserId(); 
+            //var userId = new Guid().ToString(); // temporary
 
             var userData = UserService.GetUserData(new GetUserDataQuery{ UserId = userId });
 

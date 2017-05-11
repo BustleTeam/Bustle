@@ -178,6 +178,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="src\app\home\home.component.html" />
+    <Content Include="src\app\login\login.component.html" />
     <Content Include="src\app\registration\registration.component.css" />
     <Content Include="src\app\registration\registration.component.html" />
     <Content Include="src\app\_directives\alert.component.html" />
@@ -256,13 +258,19 @@
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\app.routing.ts" />
     <TypeScriptCompile Include="src\app\app.ts" />
+    <TypeScriptCompile Include="src\app\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\registration\index.ts" />
     <TypeScriptCompile Include="src\app\registration\registration.component.ts" />
     <TypeScriptCompile Include="src\app\registration\registration.model.ts" />
     <TypeScriptCompile Include="src\app\registration\registration.service.ts" />
     <TypeScriptCompile Include="src\app\_directives\alert.component.ts" />
+    <TypeScriptCompile Include="src\app\_guards\auth.guard.ts" />
+    <TypeScriptCompile Include="src\app\_guards\index.ts" />
     <TypeScriptCompile Include="src\app\_models\user.ts" />
     <TypeScriptCompile Include="src\app\_services\alert.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\_services\index.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
