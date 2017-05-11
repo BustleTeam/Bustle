@@ -180,6 +180,7 @@
   <ItemGroup>
     <Content Include="src\app\registration\registration.component.css" />
     <Content Include="src\app\registration\registration.component.html" />
+    <Content Include="src\app\_directives\alert.component.html" />
     <Content Include="src\index.html" />
     <Content Include="src\styles.css" />
     <Content Include="Web.config" />
@@ -253,8 +254,15 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\app.routing.ts" />
+    <TypeScriptCompile Include="src\app\app.ts" />
+    <TypeScriptCompile Include="src\app\registration\index.ts" />
     <TypeScriptCompile Include="src\app\registration\registration.component.ts" />
+    <TypeScriptCompile Include="src\app\registration\registration.model.ts" />
     <TypeScriptCompile Include="src\app\registration\registration.service.ts" />
+    <TypeScriptCompile Include="src\app\_directives\alert.component.ts" />
+    <TypeScriptCompile Include="src\app\_models\user.ts" />
+    <TypeScriptCompile Include="src\app\_services\alert.service.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,10 +16,17 @@ namespace IFBusTicketSystem.BL.Services
 {
     public class UserService : IUserService
     {
+        private readonly Logger _logger;
+
         [Dependency]
         public IUserRepository Users { get; set; }
         [Dependency]
         public IValidationService ValidationService { get; set; }
+
+        public UserService()
+        {
+            _logger = LogManager.GetLogger(LogHelper.LoggerName);
+        }
 
         public async Task<bool> RegisterUserAsync(RegisterUserCommand command)
         {
@@ -35,19 +42,17 @@ namespace IFBusTicketSystem.BL.Services
             };
             
             var userCreated = Users.Register(user, command.Password);
-            
-            var logger =  LogManager.GetLogger(LogHelper.LoggerName);
 
             var result = await userCreated;
 
             if (!result.Succeeded)
             {
-                logger.Error(result.Errors);
+                _logger.Error(result.Errors);
 
                 throw new ApplicationException("Error happened during registration. Try one more time.");
             }
 
-            logger.Info($"User {command.Login} has just registered");
+            _logger.Info($"User {command.Login} has just registered");
 
             return true;
         }
