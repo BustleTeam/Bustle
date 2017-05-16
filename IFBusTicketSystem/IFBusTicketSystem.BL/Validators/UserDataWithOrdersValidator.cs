@@ -9,8 +9,8 @@ namespace IFBusTicketSystem.BL.Validators
         {
             RuleFor(_ => _).NotNull();
             RuleFor(_ => _.UserName).NotNull().NotEmpty();
-            RuleFor(_ => _.Orders).NotNull();
-            RuleFor(_ => (int) _.Sex).NotEmpty();
+            //RuleFor(_ => _.Orders).NotNull();
+            RuleFor(_ => (int) _.Sex).NotNull();
         }
     }
 }

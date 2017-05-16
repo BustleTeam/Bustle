@@ -11,6 +11,6 @@ namespace IFBusTicketSystem.Foundation.Types
         public string LastName { get; set; }
         public Sex Sex { get; set; }
         public string PhoneNumber { get; set; }
-        public IEnumerable<Ticket> Orders { get; set; } = new List<Ticket>();
+        //public List<Ticket> Orders { get; set; } = new List<Ticket>();
     }
 }

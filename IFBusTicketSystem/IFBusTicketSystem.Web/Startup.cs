@@ -1,6 +1,5 @@
 ﻿using System.Web.Http;
 using IFBusTicketSystem.Auth;
-using IFBusTicketSystem.DAL.Interfaces;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -13,19 +12,19 @@ namespace IFBusTicketSystem.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            var config = new HttpConfiguration();
-
-            WebApiConfig.Register(config);
-            app.UseWebApi(config);
-            ConfigureOAuth(app);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+          ConfigureOAuth(app);
+          var config = new HttpConfiguration();
+          WebApiConfig.Register(config);
+     
+          app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+          app.UseWebApi(config);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            // Token Generation
-            app.UseOAuthAuthorizationServer(OAuthHelper.GetOAuthServerOptions(ServiceLocator.Resolve<IUserRepository>()));
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+          // Token Generation
+          app.UseOAuthAuthorizationServer(OAuthHelper.GetOAuthServerOptions());
+          app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }

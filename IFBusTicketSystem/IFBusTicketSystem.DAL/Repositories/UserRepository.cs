@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.Foundation.Types;
@@ -43,7 +44,7 @@ namespace IFBusTicketSystem.DAL.Repositories
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 Sex = user.Sex,
-                Orders = orders
+                //Orders = orders.ToList()
             };
         }
     }

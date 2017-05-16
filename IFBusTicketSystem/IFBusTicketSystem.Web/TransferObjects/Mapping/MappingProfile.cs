@@ -111,8 +111,8 @@ namespace IFBusTicketSystem.Web.TransferObjects.Mapping
 
         cfg.CreateMap<ShortTicket, ShortTicketDTO>().ReverseMap();
 
-        cfg.CreateMap<UserDataWithOrders, UserDataDTO>()
-              .ForMember(dto => dto.Tickets, map => map.UseValue(new TicketInfoDTO()));
+        cfg.CreateMap<UserDataWithOrders, UserDataDTO>();
+              //.ForMember(dto => dto.Orders, map => map.UseValue(new TicketInfoDTO()));
 
         cfg.CreateMap<Ticket, TicketInfoDTO>()
               .ForMember(dto => dto.TicketId, map => map.MapFrom(t => t.Id))

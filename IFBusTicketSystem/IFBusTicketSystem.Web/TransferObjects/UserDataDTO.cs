@@ -13,7 +13,7 @@ namespace IFBusTicketSystem.Web.TransferObjects
         public string LastName { get; set; }
         public Sex Sex { get; set; }
         public string PhoneNumber { get; set; }
-        [Required]
-        public List<TicketInfoDTO> Tickets { get; set; } = new List<TicketInfoDTO>();
+        //[Required]
+        //public List<TicketInfoDTO> Orders { get; set; } = new List<TicketInfoDTO>();
     }
 }

@@ -52,7 +52,7 @@ namespace IFBusTicketSystem.BL.Services
                 throw new ApplicationException("Error happened during registration. Try one more time.");
             }
 
-            _logger.Info($"User {command.Login} has just registered");
+            _logger.Info($"User '{command.Login}' has just registered");
 
             return true;
         }

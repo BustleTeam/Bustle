@@ -14,5 +14,6 @@ namespace IFBusTicketSystem.DAL.Interfaces
         void Create(T entity);
         void Update(T entity);
         void Delete(int id);
+        void Delete(string id);
     }
 }

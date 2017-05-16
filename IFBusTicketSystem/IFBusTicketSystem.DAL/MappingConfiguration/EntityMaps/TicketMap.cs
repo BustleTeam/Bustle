@@ -3,7 +3,7 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 
 namespace IFBusTicketSystem.DAL.MappingConfiguration.EntityMaps
 {
-    class TicketMap : ClassMap<Ticket>
+    public class TicketMap : ClassMap<Ticket>
     {
         public TicketMap()
         {

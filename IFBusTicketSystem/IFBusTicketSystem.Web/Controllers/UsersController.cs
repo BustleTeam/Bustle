@@ -1,5 +1,4 @@
-﻿using System;
-using IFBusTicketSystem.BL.Interfaces;
+﻿using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
@@ -8,6 +7,8 @@ using Microsoft.Practices.Unity;
 using System.Web.Http;
 using IFBusTicketSystem.Web.Filters;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IFBusTicketSystem.Foundation.Types;
 using Microsoft.AspNet.Identity;
@@ -45,8 +46,9 @@ namespace IFBusTicketSystem.Web.Controllers
         [Route("userdata")]
         public IHttpActionResult GetUserInfo()
         {
-            var userId = User.Identity.GetUserId(); 
-            //var userId = new Guid().ToString(); // temporary
+            var identity = User.Identity as ClaimsIdentity;
+
+            var userId = identity.Claims.First(_ => _.Type == "userId").Value;
 
             var userData = UserService.GetUserData(new GetUserDataQuery{ UserId = userId });
 
@@ -54,7 +56,7 @@ namespace IFBusTicketSystem.Web.Controllers
 
         }
 
-        //[Route("users/{id:int:min(1)}")]
+        [Route("{id:int:min(1)}")]
         public IHttpActionResult GetById(int id)
         {
             var query = new EntityBaseQuery(id);

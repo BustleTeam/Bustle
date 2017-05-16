@@ -24,10 +24,17 @@ namespace IFBusTicketSystem.DAL.Repositories
 
         public void Create(T entity)
         {
+            UnitOfWork.BeginTransaction();
             Session.Save(entity);       
+            UnitOfWork.Commit();
         }
 
         public void Delete(int id)
+        {
+            Delete(id.ToString());
+        }
+
+        public void Delete(string id)
         {
             Session.Delete(Session.Load<T>(id));
         }

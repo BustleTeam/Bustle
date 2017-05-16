@@ -1,24 +1,21 @@
 ﻿using System;
-using IFBusTicketSystem.DAL.Interfaces;
+using IFBusTicketSystem.DAL.MappingConfiguration;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
-using Microsoft.Practices.ServiceLocation;
 
 namespace IFBusTicketSystem.Auth
 {
-    public class OAuthHelper
+    public static class OAuthHelper
     {
-        public static OAuthAuthorizationServerOptions GetOAuthServerOptions(IUserRepository userRepository = null)
+        public static OAuthAuthorizationServerOptions GetOAuthServerOptions()
         {
             return new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new AuthorizationServerProvider
-                {
-                    UserRepository = userRepository
-                }
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new AuthorizationServerProvider(FluentNhibernateConfiguration.GetSessionFactory.OpenSession()),
+                RefreshTokenProvider = new RefreshTokenProvider(FluentNhibernateConfiguration.GetSessionFactory.OpenSession())
             };
         }
     }
