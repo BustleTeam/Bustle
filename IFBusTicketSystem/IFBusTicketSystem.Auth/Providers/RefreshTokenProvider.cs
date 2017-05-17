@@ -9,7 +9,7 @@ using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Owin.Security.Infrastructure;
 using NHibernate;
 
-namespace IFBusTicketSystem.Auth
+namespace IFBusTicketSystem.Auth.Providers
 {
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {

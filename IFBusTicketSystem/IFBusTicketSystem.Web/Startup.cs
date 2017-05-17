@@ -13,6 +13,7 @@ namespace IFBusTicketSystem.Web
         public void Configuration(IAppBuilder app)
         {
           ConfigureOAuth(app);
+
           var config = new HttpConfiguration();
           WebApiConfig.Register(config);
      
@@ -24,6 +25,7 @@ namespace IFBusTicketSystem.Web
         {
           // Token Generation
           app.UseOAuthAuthorizationServer(OAuthHelper.GetOAuthServerOptions());
+          app.UseGoogleAuthentication(OAuthHelper.GetGoogleOAuthOptions());
           app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }

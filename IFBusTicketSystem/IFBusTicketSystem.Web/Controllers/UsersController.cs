@@ -1,4 +1,5 @@
-﻿using IFBusTicketSystem.BL.Interfaces;
+﻿using System;
+using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IFBusTicketSystem.Foundation.Types;
+using IFBusTicketSystem.Web.TransferObjects.Results;
 using Microsoft.AspNet.Identity;
 
 namespace IFBusTicketSystem.Web.Controllers
@@ -47,14 +49,28 @@ namespace IFBusTicketSystem.Web.Controllers
         public IHttpActionResult GetUserInfo()
         {
             var identity = User.Identity as ClaimsIdentity;
-
+            
             var userId = identity.Claims.First(_ => _.Type == "userId").Value;
 
             var userData = UserService.GetUserData(new GetUserDataQuery{ UserId = userId });
 
             return Ok(MappingProfile.Mapper.Map<UserDataWithOrders, UserDataDTO>(userData));
-
         }
+
+        [OverrideAuthentication]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        [AllowAnonymous]
+        [Route("externallogin", Name = "ExternalLogin")]
+        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
+        {
+            var redirectUri = string.Empty;
+
+            if (error != null)
+              return BadRequest(Uri.EscapeDataString(error));
+
+            if (!User.Identity.IsAuthenticated)
+              return new ChallengeResult(provider, this);
+    }
 
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetById(int id)

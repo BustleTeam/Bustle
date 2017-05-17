@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.Foundation.Types;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.AspNet.Identity;
-using NHibernate.AspNet.Identity;
 
 namespace IFBusTicketSystem.DAL.Repositories
 {
@@ -24,9 +21,30 @@ namespace IFBusTicketSystem.DAL.Repositories
             return await _userManager.CreateAsync(user, password);
         }
 
+        public async Task<IdentityResult> RegisterAsync(UserInfo user)
+        {
+            var result = await _userManager.CreateAsync(user);
+
+            return result;
+        }
+
+        public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo loginInfo)
+        {
+            var result = await _userManager.AddLoginAsync(userId, loginInfo);
+
+            return result;
+        }
+
         public async Task<UserInfo> FindUser(string userName, string password)
         {
             var user = await _userManager.FindAsync(userName, password);
+
+            return user;
+        }
+
+        public async Task<UserInfo> FindUserAsync(UserLoginInfo loginInfo)
+        {
+            var user = await _userManager.FindAsync(loginInfo);
 
             return user;
         }
