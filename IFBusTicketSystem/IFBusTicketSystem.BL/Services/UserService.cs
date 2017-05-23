@@ -3,13 +3,17 @@ using IFBusTicketSystem.BL.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IFBusTicketSystem.Auth;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using Microsoft.Practices.Unity;
 using IFBusTicketSystem.DAL.Interfaces;
 using IFBusTicketSystem.BL.Validators;
 using IFBusTicketSystem.Foundation.Constants;
+using IFBusTicketSystem.Foundation.Exceptions;
 using IFBusTicketSystem.Foundation.Types;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json.Linq;
 using NLog;
 
 namespace IFBusTicketSystem.BL.Services
@@ -55,6 +59,31 @@ namespace IFBusTicketSystem.BL.Services
             _logger.Info($"User '{command.Login}' has just registered");
 
             return true;
+        }
+
+        public async Task<RegisterExternalUserResult> RegisterExternalUserAsync(RegisterExternalUserCommand command)
+        {
+            ValidationService.Validate(command, new RegisterExternalUserCommandValidator());
+
+            var verifiedAccessToken = await AuthUtility.VerifyExternalAccessToken(command.Provider, command.AccessToken);
+
+            var loginInfo = new UserLoginInfo(command.Provider, verifiedAccessToken.UserId);
+
+            if (await Users.FindUserAsync(loginInfo) != null)
+                throw new BadRequestException("External user is already registered");
+
+            var user = new UserInfo
+            {
+                UserName = command.UserName
+            };
+
+            Users.Create(user);
+
+            return new RegisterExternalUserResult
+            {
+                IdentityResult = await Users.AddLoginAsync(user.Id, loginInfo),
+                LocalAccessToken = AuthUtility.GenerateLocalAccessTokenResponse(command.UserName)
+            };
         }
 
         public void CreateUser(UserBaseQuery query)

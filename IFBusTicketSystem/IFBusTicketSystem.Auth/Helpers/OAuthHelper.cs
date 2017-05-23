@@ -5,7 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 
-namespace IFBusTicketSystem.Auth
+namespace IFBusTicketSystem.Auth.Helpers
 {
     public static class OAuthHelper
     {

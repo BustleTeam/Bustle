@@ -9,6 +9,7 @@ namespace IFBusTicketSystem.BL.Interfaces
     public interface IUserService
     {
         Task<bool> RegisterUserAsync(RegisterUserCommand command);
+        Task<RegisterExternalUserResult> RegisterExternalUserAsync(RegisterExternalUserCommand command);
 
         UserInfo GetUserById(EntityBaseQuery query);
         IEnumerable<UserInfo> GetAllUsers();

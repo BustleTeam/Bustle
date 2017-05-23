@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using IFBusTicketSystem.Auth;
+using IFBusTicketSystem.Auth.Helpers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;

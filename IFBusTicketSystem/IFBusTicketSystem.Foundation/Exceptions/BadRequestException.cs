@@ -1,0 +1,11 @@
+﻿using System;
+
+namespace IFBusTicketSystem.Foundation.Exceptions
+{
+    public class BadRequestException : Exception
+    {
+        public BadRequestException(){}
+
+        public BadRequestException(string message):base(message){}
+    }
+}

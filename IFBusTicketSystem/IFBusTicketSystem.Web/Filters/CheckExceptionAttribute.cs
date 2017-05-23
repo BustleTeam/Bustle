@@ -1,7 +1,9 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http.Filters;
 using IFBusTicketSystem.Foundation.Constants;
+using IFBusTicketSystem.Foundation.Exceptions;
 using NLog;
 
 namespace IFBusTicketSystem.Web.Filters
@@ -13,8 +15,15 @@ namespace IFBusTicketSystem.Web.Filters
            var logger = LogManager.GetLogger(LogHelper.LoggerName);
            logger.Error(context.Exception);
 
-            //Todo: Maybe later add more specific exception checking and appropriate status code (V.Y.)
-            context.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            context.Response = context.Request.CreateResponse(GetAppropriateStatusCode(context.Exception), context.Exception.Message);
+        }
+
+        private static HttpStatusCode GetAppropriateStatusCode(Exception exception)
+        {
+            if (exception is BadRequestException)
+                  return HttpStatusCode.BadRequest;
+
+            return HttpStatusCode.InternalServerError;
         }
     }
 }

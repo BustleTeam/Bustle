@@ -60,6 +60,10 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NHibernate, Version=4.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\NHibernate.4.1.1.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
@@ -87,12 +91,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IRaceService.cs" />
     <Compile Include="Interfaces\IRouteService.cs" />
     <Compile Include="Interfaces\ITicketService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Interfaces\IValidationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\RaceService.cs" />
     <Compile Include="Services\RouteService.cs" />
     <Compile Include="Services\TicketService.cs" />
@@ -101,9 +107,12 @@
     <Compile Include="Validators\BookTicketCommandValidator.cs" />
     <Compile Include="Validators\GetRacesByDateQueryValidator.cs" />
     <Compile Include="Validators\EntityBaseQueryValidator.cs" />
+    <Compile Include="Validators\GetRedirectUriQueryValidator.cs" />
     <Compile Include="Validators\GetUserDataQueryValidator.cs" />
+    <Compile Include="Validators\ObtainLocalAccessTokenCommandValidator.cs" />
     <Compile Include="Validators\RaceBaseQueryValidator.cs" />
     <Compile Include="Validators\GetRacesByDestinationQueryValidator.cs" />
+    <Compile Include="Validators\RegisterExternalUserCommandValidator.cs" />
     <Compile Include="Validators\RegisterUserCommandValidator.cs" />
     <Compile Include="Validators\RouteBaseQueryValidator.cs" />
     <Compile Include="Validators\SeatsValidator.cs" />
@@ -119,6 +128,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IFBusTicketSystem.Auth\IFBusTicketSystem.Auth.csproj">
+      <Project>{04011424-D5E5-41E5-A19E-D478EC81AA29}</Project>
+      <Name>IFBusTicketSystem.Auth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IFBusTicketSystem.DAL\IFBusTicketSystem.DAL.csproj">
       <Project>{5CA8B501-D49B-43A6-8A94-28CB952DD669}</Project>
       <Name>IFBusTicketSystem.DAL</Name>

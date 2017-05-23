@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Practices.Unity;
 using NHibernate;
 using NHibernate.AspNet.Identity;
-using NLog;
 
 namespace IFBusTicketSystem.Web
 {
@@ -50,6 +49,8 @@ namespace IFBusTicketSystem.Web
                 new InjectionConstructor(new UserManager<UserInfo>(new UserStore<UserInfo>(container.Resolve<ISession>()))));
             container.RegisterType<ITicketRepository, TicketRepository>(new PerResolveLifetimeManager());
             container.RegisterType<ISeatRepository, SeatRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IClientRepository, ClientRepository>(new PerResolveLifetimeManager());
+            container.RegisterType<IRefreshTokenRepository, RefreshTokenRepository>(new PerResolveLifetimeManager());
 
         #endregion
 
@@ -60,6 +61,7 @@ namespace IFBusTicketSystem.Web
             container.RegisterType<IUserService, UserService>(new PerResolveLifetimeManager());
             container.RegisterType<ITicketService, TicketService>(new PerResolveLifetimeManager());
 
+            container.RegisterType<IAccountService, AccountService>(new PerResolveLifetimeManager());
             container.RegisterType<IValidationService, ValidationService>(new PerResolveLifetimeManager());
 
             #endregion

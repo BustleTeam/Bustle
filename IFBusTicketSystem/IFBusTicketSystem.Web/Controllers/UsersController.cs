@@ -1,5 +1,4 @@
-﻿using System;
-using IFBusTicketSystem.BL.Interfaces;
+﻿using IFBusTicketSystem.BL.Interfaces;
 using IFBusTicketSystem.Foundation.RequestEntities;
 using IFBusTicketSystem.Foundation.Types.Entities;
 using IFBusTicketSystem.Web.TransferObjects;
@@ -12,7 +11,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IFBusTicketSystem.Foundation.Types;
-using IFBusTicketSystem.Web.TransferObjects.Results;
 using Microsoft.AspNet.Identity;
 
 namespace IFBusTicketSystem.Web.Controllers
@@ -26,14 +24,33 @@ namespace IFBusTicketSystem.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("register")]
-        public async Task<IHttpActionResult> Register([FromBody] RegisterUserDTO registerUserDto)
+        [Route("Register")]
+        public async Task<IHttpActionResult> RegisterAsync([FromBody] RegisterUserDTO registerUserDto)
         {
           var command = MappingProfile.Mapper.Map<RegisterUserDTO, RegisterUserCommand>(registerUserDto);
 
           await UserService.RegisterUserAsync(command);
 
           return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("RegisterExternal")]
+        public async Task<IHttpActionResult> RegisterExternalAsync(RegisterExternalBindingDTO dto)
+        {
+
+            var result = await UserService.RegisterExternalUserAsync(new RegisterExternalUserCommand
+            {
+                AccessToken = dto.ExternalAccessToken,
+                Provider = dto.Provider,
+                UserName = dto.UserName
+            });
+
+            if (!result.IdentityResult.Succeeded)
+              return GetErrorResult(result.IdentityResult);
+            
+            return Ok(result.LocalAccessToken);
         }
 
         public IHttpActionResult GetAll()
@@ -45,32 +62,20 @@ namespace IFBusTicketSystem.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        [Route("userdata")]
+        [Route("UserData")]
         public IHttpActionResult GetUserInfo()
         {
             var identity = User.Identity as ClaimsIdentity;
-            
+
+            if (identity == null)
+                return InternalServerError();
+
             var userId = identity.Claims.First(_ => _.Type == "userId").Value;
 
             var userData = UserService.GetUserData(new GetUserDataQuery{ UserId = userId });
 
             return Ok(MappingProfile.Mapper.Map<UserDataWithOrders, UserDataDTO>(userData));
         }
-
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        [AllowAnonymous]
-        [Route("externallogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
-        {
-            var redirectUri = string.Empty;
-
-            if (error != null)
-              return BadRequest(Uri.EscapeDataString(error));
-
-            if (!User.Identity.IsAuthenticated)
-              return new ChallengeResult(provider, this);
-    }
 
         [Route("{id:int:min(1)}")]
         public IHttpActionResult GetById(int id)
@@ -113,5 +118,34 @@ namespace IFBusTicketSystem.Web.Controllers
             UserService.DeleteUser(query);
             return Ok();
         }
-    }
+
+      private IHttpActionResult GetErrorResult(IdentityResult result)
+      {
+        if (result == null)
+        {
+          return InternalServerError();
+        }
+
+        if (!result.Succeeded)
+        {
+          if (result.Errors != null)
+          {
+            foreach (var error in result.Errors)
+            {
+              ModelState.AddModelError("", error);
+            }
+          }
+
+          if (ModelState.IsValid)
+          {
+            // No ModelState errors are available to send, so just return an empty BadRequest.
+            return BadRequest();
+          }
+
+          return BadRequest(ModelState);
+        }
+
+        return null;
+      }
+  }
 }

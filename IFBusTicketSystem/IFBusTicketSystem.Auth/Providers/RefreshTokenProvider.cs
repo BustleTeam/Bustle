@@ -33,9 +33,7 @@ namespace IFBusTicketSystem.Auth.Providers
             var clientid = context.Ticket.Properties.Dictionary["as:client_id"];
 
             if (string.IsNullOrEmpty(clientid))
-            {
                 return;
-            }
 
             var refreshTokenId = Guid.NewGuid().ToString("n");
 
@@ -72,7 +70,7 @@ namespace IFBusTicketSystem.Auth.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            string hashedTokenId = context.Token.GetHash();
+            var hashedTokenId = context.Token.GetHash();
 
             var refreshToken = _refreshTokenRepository.GetSingle(rt => rt.Id == hashedTokenId);
 
