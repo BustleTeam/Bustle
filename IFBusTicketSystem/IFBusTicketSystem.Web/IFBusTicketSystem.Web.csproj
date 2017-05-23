@@ -211,6 +211,7 @@
     <Compile Include="TransferObjects\ExternalLoginDTO.cs" />
     <Compile Include="TransferObjects\GetExternalLoginDTO.cs" />
     <Compile Include="TransferObjects\Mapping\MappingProfile.cs" />
+    <Compile Include="TransferObjects\ObtainLocalAccessTokenDTO.cs" />
     <Compile Include="TransferObjects\RaceDTO.cs" />
     <Compile Include="TransferObjects\RegisterExternalBindingDTO.cs" />
     <Compile Include="TransferObjects\RegisterUserDTO.cs" />
