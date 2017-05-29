@@ -5,7 +5,8 @@ import { AlertService, AuthenticationService } from '../_services/index';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -38,5 +39,15 @@ export class LoginComponent implements OnInit {
           this.alertService.error(error);
           this.loading = false;
         });
+  }
+
+  authExternalProvider(provider: string){
+    var redirectUri = location.protocol + '//' + location.host + '/index.html';
+
+    var externalProviderUrl = "http://localhost:62390/api/login/ExternalLogin?provider=" + provider
+      + "&response_type=token&client_id=639517171655-eit8q8itemlfdv9pe1ubi7dndvs11gce.apps.googleusercontent.com"
+      + "&redirect_uri=http://localhost:62390/index.html";
+
+    var oauthWindow = window.open(externalProviderUrl, "Authenticate Account", "location=0,status=0,width=600,height=750");
   }
 }

@@ -22,40 +22,41 @@ namespace IFBusTicketSystem.Web.Controllers
     [Dependency]
     public IAccountService AccountService { get; set; }
 
-    [OverrideAuthentication]
-    [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-    [AllowAnonymous]
-    [Route("ExternalLogin", Name = "ExternalLogin")]
-    public async Task<IHttpActionResult> GetExternalLogin(GetExternalLoginDTO getExternalLogin)
-    {
-        if (getExternalLogin.Error != null)
-          return BadRequest(Uri.EscapeDataString(getExternalLogin.Error));
+      [OverrideAuthentication]
+      [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+      [AllowAnonymous]
+      [HttpGet]
+      [Route("ExternalLogin", Name = "ExternalLogin")]
+      public async Task<IHttpActionResult> GetExternalLogin(string provider)
+      {
+          //if (getExternalLogin.Error != null)
+          //  return BadRequest(Uri.EscapeDataString(getExternalLogin.Error));
 
-        if (!User.Identity.IsAuthenticated)
-          return new ChallengeResult(getExternalLogin.Provider, this);
+          if (!User.Identity.IsAuthenticated)
+            return new ChallengeResult(provider, this);
 
-        var query = new GetRedirectUriQuery
-        {
-            QueryStrings = Request.GetQueryNameValuePairs().ToList(),
-            Identity = User.Identity as ClaimsIdentity,
-            Provider = getExternalLogin.Provider
-        };
+          var query = new GetRedirectUriQuery
+          {
+              QueryStrings = Request.GetQueryNameValuePairs().ToList(),
+              Identity = User.Identity as ClaimsIdentity,
+              Provider = provider
+          };
 
-        var redirectUriResult =  await AccountService.GetRedirectUriAsync(query);
+          var redirectUriResult =  await AccountService.GetRedirectUriAsync(query);
 
-        redirectUriResult.CheckIfNull();
+          redirectUriResult.CheckIfNull();
 
-        var redirectUriValidationResult = redirectUriResult.Item1;
-        var redirectUriResultText = redirectUriResult.Item2;
+          var redirectUriValidationResult = redirectUriResult.Item1;
+          var redirectUriResultText = redirectUriResult.Item2;
         
-        if (!redirectUriValidationResult)
-            return BadRequest(redirectUriResultText);
+          if (!redirectUriValidationResult)
+              return BadRequest(redirectUriResultText);
 
-        if (string.IsNullOrWhiteSpace(redirectUriResultText))
-          return new ChallengeResult(getExternalLogin.Provider, this);
+          if (string.IsNullOrWhiteSpace(redirectUriResultText))
+            return new ChallengeResult(provider, this);
 
-        return Redirect(redirectUriResultText);
-    }
+          return Redirect(redirectUriResultText);
+      }
 
       [AllowAnonymous]
       [HttpGet]

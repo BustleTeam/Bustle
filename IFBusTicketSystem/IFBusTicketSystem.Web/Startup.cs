@@ -24,6 +24,7 @@ namespace IFBusTicketSystem.Web
 
         public void ConfigureOAuth(IAppBuilder app)
         {
+          app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
           // Token Generation
           app.UseOAuthAuthorizationServer(OAuthHelper.GetOAuthServerOptions());
           app.UseGoogleAuthentication(OAuthHelper.GetGoogleOAuthOptions());

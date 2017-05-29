@@ -41,7 +41,7 @@ namespace IFBusTicketSystem.Auth
               if (client == null)
                   return $"Client_id '{clientId}' is not registered in the system.";
 
-              if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
+              if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase) && !string.Equals(client.AllowedOrigin, "*"))
                   return $"The given URL is not allowed by Client_id '{clientId}' configuration.";
 
               redirectUriOutput = redirectUri.AbsoluteUri;
